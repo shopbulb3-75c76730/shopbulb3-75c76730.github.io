@@ -1,0 +1,1465 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>看料13yandex - 垂直内容聚合与深度解析</title>
+  <meta name="description" content="看料13yandex 汇聚影视、游戏、数码、财经等垂直内容，提供具体条目卡片、最新更新、分类入口、深度解析、体验指南与用户评论，适合关注领域动态和消费决策的读者。">
+  <meta name="keywords" content="看料13yandex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b2b4b'/%3E%3Cpath d='M18 40 32 14l14 26H18Z' fill='%23f2b84b'/%3E%3Ccircle cx='32' cy='44' r='8' fill='%23e8f0fe'/%3E%3C/svg%3E">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "看料13yandex",
+    "url": "https://example.com/",
+    "description": "看料13yandex 垂直内容聚合与深度解析首页",
+    "inLanguage": "zh-CN"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "《星际拓荒者》第3集值得追吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "第3集把时间循环解释清楚，节奏比前两集慢，但埋了三个后续伏笔。豆瓣短评区目前7.6分，差评集中在旁白太多。适合喜欢硬科幻设定的观众。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Steam新品节2026秋季有哪些值得试玩的独立游戏？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "《深岩回响》《像素农场2077》《海雾》三款试玩版下载量均过十万。其中《深岩回响》在B站已有UP主做完整流程，约2.5小时。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "降噪耳机和HiFi耳机怎么选？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "通勤场景优先降噪，声场和解析力通常弱于同价位HiFi；固定室内听歌选HiFi，但需搭配前端。2026年双十一降噪旗舰集中在1500-2000元档。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "国产动画电影2026年有哪些定档？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "《深海2》定档2026年12月20日，《雄狮少年3》定档2027年1月，光线传媒《哪吒之魔童闹海》重映版11月15日上线。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "电视盒子芯片性能怎么看？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "主要看GPU型号和内存带宽。晶晨S928X支持8K解码但功耗高，瑞芯微RK3588多核跑分更强。2026年主流盒子已标配4GB内存。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "独立游戏《迷雾侦探2》口碑如何？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Steam好评率89%，差评集中在解谜提示太少和第五章掉帧。TapTap评分8.2，玩家讨论集中在剧情反转是否合理。"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --brand: #1b2b4b;
+      --brand-light: #2f4a7a;
+      --brand-soft: #e8eef7;
+      --accent: #f2b84b;
+      --accent-dark: #d99a2b;
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --text: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #6b7a90;
+      --line: #dbe2ed;
+      --radius-card: 16px;
+      --radius-btn: 10px;
+      --radius-tag: 6px;
+      --shadow: 0 2px 8px rgba(0,0,0,.04);
+      --shadow-hover: 0 8px 20px rgba(0,0,0,.08);
+      --header-height: 58px;
+      --announce-height: 38px;
+      --container: 1320px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .container {
+      width: min(100% - 32px, var(--container));
+      margin-inline: auto;
+    }
+
+    /* 吸顶公告条 */
+    .announce-bar {
+      position: sticky;
+      top: 0;
+      z-index: 110;
+      background: var(--brand);
+      color: #fff;
+      font-size: 13px;
+      height: var(--announce-height);
+      display: flex;
+      align-items: center;
+    }
+    .announce-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .announce-bar .container::-webkit-scrollbar { display: none; }
+    .announce-bar .brand-mini { font-weight: 700; color: var(--accent); letter-spacing: .5px; margin-right: 4px; }
+    .announce-bar .announce-item { display: inline-flex; align-items: center; gap: 6px; }
+    .announce-bar .announce-item .date { color: var(--accent); font-weight: 600; }
+    .announce-bar .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.4); }
+
+    /* 吸顶页头 */
+    .site-header {
+      position: sticky;
+      top: var(--announce-height);
+      z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      height: var(--header-height);
+    }
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      height: 100%;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--brand);
+      letter-spacing: .3px;
+      flex-shrink: 0;
+    }
+    .logo svg { width: 28px; height: 28px; }
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+    }
+    .main-nav::-webkit-scrollbar { display: none; }
+    .main-nav a {
+      padding: 6px 12px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: background .2s, color .2s;
+    }
+    .main-nav a:hover { background: var(--brand-soft); color: var(--brand); }
+    .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 12px;
+      width: 220px;
+      transition: border .2s;
+    }
+    .search-box:focus-within { border-color: var(--brand-light); }
+    .search-box input {
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      width: 100%;
+      outline: none;
+      color: var(--text);
+    }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-box button {
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-size: 16px;
+      padding: 0 2px;
+    }
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hamburger span { display: block; width: 16px; height: 2px; background: var(--brand); border-radius: 2px; }
+
+    /* 三栏布局 */
+    .layout-3col {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) 250px;
+      gap: 28px;
+      align-items: start;
+      padding-block: 32px 48px;
+    }
+
+    /* 左侧频道索引 */
+    .channel-index {
+      position: sticky;
+      top: calc(var(--announce-height) + var(--header-height) + 20px);
+      background: var(--panel);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--line);
+      padding: 16px 0;
+      box-shadow: var(--shadow);
+    }
+    .channel-index h2 {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 0 18px 10px;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+    .channel-index ul { list-style: none; }
+    .channel-index li a {
+      display: block;
+      padding: 8px 18px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-left: 3px solid transparent;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .channel-index li a:hover,
+    .channel-index li a.active {
+      background: var(--brand-soft);
+      color: var(--brand);
+      border-left-color: var(--accent);
+    }
+
+    /* 中间主内容 */
+    .main-content { min-width: 0; display: flex; flex-direction: column; gap: 40px; }
+
+    /* 首屏 */
+    .hero {
+      background: linear-gradient(135deg, #1b2b4b 0%, #2f4a7a 60%, #3d5f8a 100%);
+      border-radius: 24px;
+      padding: 44px 40px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(242,184,75,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-text { flex: 1; position: relative; z-index: 1; }
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,.82);
+      max-width: 560px;
+      margin-bottom: 22px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      border: none;
+    }
+    .btn-primary { background: var(--accent); color: var(--brand); }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(242,184,75,.35); }
+    .btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); }
+    .btn-outline:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
+    .hero-visual {
+      flex-shrink: 0;
+      width: 180px;
+      height: 180px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-visual svg { width: 100%; height: 100%; }
+
+    /* 板块通用 */
+    .section { display: flex; flex-direction: column; gap: 18px; }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .section-head h2 {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: .3px;
+    }
+    .section-head .sub { font-size: 13px; color: var(--text-muted); }
+    .section-head a { font-size: 13px; color: var(--brand-light); font-weight: 500; }
+    .section-head a:hover { text-decoration: underline; }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--panel);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .card img { width: 100%; height: 140px; object-fit: cover; }
+    .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card-body .type-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: var(--radius-tag);
+      background: var(--brand-soft);
+      color: var(--brand);
+      font-weight: 600;
+      width: fit-content;
+    }
+    .card-body h3 { font-size: 15px; font-weight: 700; line-height: 1.4; }
+    .card-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+    .card-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .card-meta .hot { color: #e05252; font-weight: 600; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: var(--radius-tag);
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 1px solid var(--line);
+    }
+
+    /* 紧凑列表 */
+    .list-compact { display: flex; flex-direction: column; gap: 0; background: var(--panel); border-radius: var(--radius-card); border: 1px solid var(--line); overflow: hidden; }
+    .list-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      align-items: flex-start;
+      transition: background .2s;
+    }
+    .list-item:last-child { border-bottom: none; }
+    .list-item:hover { background: var(--brand-soft); }
+    .list-item .item-index {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand-light);
+      width: 24px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .list-item .item-content { flex: 1; min-width: 0; }
+    .list-item .item-content h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .list-item .item-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .list-item .item-date { font-size: 12px; color: var(--text-muted); white-space: nowrap; flex-shrink: 0; }
+
+    /* 分类入口 */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+    }
+    .cat-item {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      padding: 18px 14px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brand);
+      transition: background .2s, transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .cat-item:hover { background: var(--brand-soft); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .cat-item .cat-icon { font-size: 22px; line-height: 1; }
+
+    /* 深度解析正文 */
+    .article-body {
+      background: var(--panel);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--line);
+      padding: 28px 32px;
+      box-shadow: var(--shadow);
+    }
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--brand);
+      margin: 24px 0 10px;
+    }
+    .article-body h3:first-child { margin-top: 0; }
+    .article-body p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+    .article-body ul { margin: 8px 0 14px 20px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+    .article-body li { margin-bottom: 4px; }
+    .article-body .highlight { background: var(--brand-soft); padding: 2px 6px; border-radius: 4px; font-weight: 600; color: var(--brand); }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    details {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      padding: 0;
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    details:hover { box-shadow: var(--shadow); }
+    summary {
+      padding: 14px 18px;
+      font-size: 14.5px;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      font-size: 18px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform .2s;
+    }
+    details[open] summary::after { content: "−"; }
+    details .faq-answer {
+      padding: 0 18px 16px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* 评论 */
+    .comment-list { display: flex; flex-direction: column; gap: 12px; }
+    .comment {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      padding: 14px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--brand-soft);
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .comment-body { flex: 1; min-width: 0; }
+    .comment-body .nickname { font-size: 13px; font-weight: 600; color: var(--brand); margin-bottom: 2px; }
+    .comment-body .text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; }
+    .comment-body .meta { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+    /* 资讯 */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .news-card {
+      background: var(--panel);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .news-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .news-card img { width: 100%; height: 150px; object-fit: cover; }
+    .news-body { padding: 14px 16px; }
+    .news-body .date { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .news-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+    .news-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* 相关推荐标签索引 */
+    .tag-index { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag-index a {
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: var(--text-secondary);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .tag-index a:hover { background: var(--brand-soft); color: var(--brand); border-color: var(--brand-light); }
+
+    /* 右侧辅助栏 */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--announce-height) + var(--header-height) + 20px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .side-panel {
+      background: var(--panel);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--line);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+    }
+    .side-panel h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .side-panel .rank-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .side-panel .rank-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+    .side-panel .rank-list .rank-num {
+      width: 20px; height: 20px;
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .side-panel .rank-list li:nth-child(1) .rank-num { background: var(--accent); color: var(--brand); }
+    .side-panel .rank-list li:nth-child(2) .rank-num { background: #d9e4f5; color: var(--brand); }
+    .side-panel .rank-list li:nth-child(3) .rank-num { background: #f5e3c8; color: var(--brand); }
+    .side-panel .rank-list .rank-title { color: var(--text-secondary); line-height: 1.5; }
+    .side-panel .update-list { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--text-secondary); }
+    .side-panel .update-list li { display: flex; justify-content: space-between; gap: 8px; }
+
+    /* 页尾 */
+    .site-footer {
+      background: var(--brand);
+      color: rgba(255,255,255,.75);
+      padding: 40px 0 28px;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 10px; }
+    .footer-brand .logo-footer { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; color: #fff; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 320px; color: rgba(255,255,255,.6); }
+    .footer-col h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.6); padding: 3px 0; transition: color .2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,.45);
+    }
+
+    /* 回到顶部 */
+    .back-top {
+      position: fixed;
+      right: 24px;
+      bottom: 32px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.18);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s, visibility .3s, transform .2s;
+      z-index: 90;
+    }
+    .back-top.visible { opacity: 1; visibility: visible; }
+    .back-top:hover { transform: translateY(-3px); background: var(--brand-light); }
+
+    /* 滚动偏移 */
+    section[id] { scroll-margin-top: calc(var(--announce-height) + var(--header-height) + 16px); }
+
+    /* 平板 */
+    @media (max-width: 1024px) {
+      .layout-3col {
+        grid-template-columns: minmax(0, 1fr) 240px;
+      }
+      .channel-index { display: none; }
+      .main-nav { gap: 2px; }
+      .hero { flex-direction: column; text-align: left; padding: 32px 24px; }
+      .hero-visual { width: 140px; height: 140px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 740px) {
+      .layout-3col {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-block: 20px 32px;
+      }
+      .sidebar {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .side-panel { flex: 1 1 240px; }
+      .main-nav { display: none; }
+      .hamburger { display: flex; }
+      .search-box { width: 140px; }
+      .hero { padding: 28px 20px; border-radius: 18px; }
+      .hero h1 { font-size: 26px; }
+      .hero-visual { display: none; }
+      .article-body { padding: 20px 18px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .back-top { right: 16px; bottom: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar" role="region" aria-label="站点公告">
+    <div class="container">
+      <span class="brand-mini">看料13yandex</span>
+      <span class="announce-item"><span class="date">11月8日</span><span class="dot"></span><span>《星际拓荒者》第3集上线</span></span>
+      <span class="announce-item"><span class="date">11月7日</span><span class="dot"></span><span>Steam秋季新品节试玩榜单出炉</span></span>
+      <span class="announce-item"><span class="date">11月5日</span><span class="dot"></span><span>2026年Q3降噪耳机横评更新</span></span>
+    </div>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/#hero" class="logo" aria-label="看料13yandex 首页">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#1b2b4b"/>
+          <path d="M18 40 32 14l14 26H18Z" fill="#f2b84b"/>
+          <circle cx="32" cy="44" r="8" fill="#e8f0fe"/>
+        </svg>
+        <span>看料13yandex</span>
+      </a>
+      <nav class="main-nav" aria-label="主题导航">
+        <a href="/#focus">精选</a>
+        <a href="/#updates">更新</a>
+        <a href="/#categories">分类</a>
+        <a href="/#deep-dive">深度</a>
+        <a href="/#guide">指南</a>
+        <a href="/#faq">问答</a>
+        <a href="/#comments">评论</a>
+        <a href="/#news">资讯</a>
+      </nav>
+      <div class="header-actions">
+        <div class="search-box" role="search">
+          <input type="search" id="site-search" placeholder="搜条目、类型、规则…" aria-label="搜索站内内容">
+          <button type="button" id="search-btn" aria-label="执行搜索">🔍</button>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 移动端导航抽屉 -->
+  <div id="mobile-nav" style="display:none;position:fixed;inset:0;z-index:120;">
+    <div id="mobile-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.4);"></div>
+    <nav style="position:absolute;top:0;right:0;width:260px;height:100%;background:#fff;padding:24px 18px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,.1);" aria-label="移动端导航">
+      <button id="mobile-close" style="align-self:flex-end;background:none;border:none;font-size:22px;padding:4px 8px;color:var(--text-muted);" aria-label="关闭菜单">✕</button>
+      <a href="/#focus" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">精选内容</a>
+      <a href="/#updates" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">最新更新</a>
+      <a href="/#categories" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">分类入口</a>
+      <a href="/#deep-dive" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">深度解析</a>
+      <a href="/#guide" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">体验指南</a>
+      <a href="/#faq" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">常见问答</a>
+      <a href="/#comments" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">用户评论</a>
+      <a href="/#news" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">相关资讯</a>
+      <a href="/#recommend" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--text-secondary);">相关推荐</a>
+      <a href="/#submit" style="padding:10px 8px;border-radius:8px;font-size:15px;color:var(--brand);font-weight:600;">投稿 / 交流</a>
+    </nav>
+  </div>
+
+  <!-- 三栏布局 -->
+  <div class="container layout-3col">
+
+    <!-- 左频道索引 -->
+    <aside class="channel-index" aria-label="频道索引">
+      <h2>频道索引</h2>
+      <ul>
+        <li><a href="/#focus" class="active">精选内容</a></li>
+        <li><a href="/#updates">最新更新</a></li>
+        <li><a href="/#categories">分类入口</a></li>
+        <li><a href="/#deep-dive">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#faq">常见问答</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#recommend">相关推荐</a></li>
+        <li><a href="/#rank">热门榜单</a></li>
+        <li><a href="/#submit">投稿 / 交流</a></li>
+      </ul>
+    </aside>
+
+    <!-- 中间主内容 -->
+    <main class="main-content">
+
+      <!-- 首屏 -->
+      <section id="hero" class="hero">
+        <div class="hero-text">
+          <h1>看料13yandex</h1>
+          <p>聚合影视、游戏、数码、财经等垂直领域的具体条目：从《星际拓荒者》第3集到Steam秋季新品节试玩，从降噪耳机横评到国产动画定档，每一条都带日期、数据与来源。</p>
+          <div class="hero-actions">
+            <a href="/#focus" class="btn btn-primary">浏览精选条目</a>
+            <a href="/#updates" class="btn btn-outline">查看今日更新</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 200 200" fill="none">
+            <circle cx="100" cy="100" r="88" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="64" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+            <path d="M100 28 L130 78 L100 68 L70 78 Z" fill="#f2b84b" opacity=".85"/>
+            <rect x="62" y="108" width="76" height="48" rx="8" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+            <line x1="78" y1="124" x2="122" y2="124" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="78" y1="136" x2="108" y2="136" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="100" cy="100" r="6" fill="#f2b84b"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- 主题领域概览 -->
+      <section id="overview" class="section">
+        <div class="section-head">
+          <h2>领域概览：近期值得关注的具体内容方向</h2>
+        </div>
+        <div class="article-body" style="padding:22px 26px;">
+          <p>垂直内容聚合在2026年呈现更细的分层。影视方向，科幻剧《星际拓荒者》第3集于11月8日上线，豆瓣开分7.9，短评区讨论集中在时间循环设定的逻辑闭环；国产动画《深海2》定档12月20日，光线传媒在11月5日发布首支预告，B站播放量48小时破320万。游戏领域，Steam秋季新品节11月6日结束，试玩版下载量前三为《深岩回响》《像素农场2077》《海雾》，独立游戏《迷雾侦探2》正式版好评率89%。数码消费端，2026年Q3降噪耳机横评覆盖索尼WF-1000XM6、Bose QC Ultra 2、华为FreeBuds Pro 5，价格集中在1499至1999元。财经条目方面，11月7日公布的10月CPI同比上涨0.3%，PPI同比下降1.8%，多家券商在11月8日晨报中调整了Q4消费板块盈利预测。内容消费的节奏在加快，单品条目的有效窗口从过去的两周压缩到五至七天。</p>
+          <p>值得留意的还有虚拟制作产业链：爱奇艺11月4日公布虚拟拍摄棚使用率同比提升42%，《大梦归离》第二季已全程采用LED环幕。这些条目背后是同一套判断逻辑——先看时间锚点，再看数据出处，最后比对同类项。</p>
+        </div>
+      </section>
+
+      <!-- 精选内容推荐 -->
+      <section id="focus" class="section">
+        <div class="section-head">
+          <h2>精选内容推荐：近期高关注条目</h2>
+          <a href="/#updates">查看全部更新 →</a>
+        </div>
+        <div class="card-grid" id="focus-grid">
+          <article class="card">
+            <img src="https://picsum.photos/seed/xingji3/400/300" width="400" height="300" loading="lazy" alt="《星际拓荒者》第3集剧照">
+            <div class="card-body">
+              <span class="type-tag">剧集</span>
+              <h3>《星际拓荒者》第3集</h3>
+              <p>时间循环设定在本集给出完整解释，前两集埋的舱体编号和船员日志在此收束。豆瓣短评区7.6分，差评集中在旁白信息量过大。</p>
+              <div class="tag-row"><span class="tag">科幻</span><span class="tag">时间循环</span><span class="tag">豆瓣7.6</span></div>
+              <div class="card-meta"><span class="hot">热度 9.2万</span><span>11月8日更新</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/shenyany/400/300" width="400" height="300" loading="lazy" alt="《深岩回响》游戏画面">
+            <div class="card-body">
+              <span class="type-tag">独立游戏</span>
+              <h3>《深岩回响》试玩版</h3>
+              <p>Steam秋季新品节下载量第一，约2.5小时流程。B站UP主“老戴”11月6日发布完整实况，播放量41万。核心玩法是声波探路。</p>
+              <div class="tag-row"><span class="tag">Steam</span><span class="tag">试玩版</span><span class="tag">声波解谜</span></div>
+              <div class="card-meta"><span class="hot">热度 12.6万</span><span>11月6日发布</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/jiangzai/400/300" width="400" height="300" loading="lazy" alt="降噪耳机横评产品图">
+            <div class="card-body">
+              <span class="type-tag">数码</span>
+              <h3>2026 Q3 降噪耳机横评</h3>
+              <p>覆盖索尼WF-1000XM6、Bose QC Ultra 2、华为FreeBuds Pro 5。地铁场景降噪深度实测：索尼-42dB，Bose-40dB，华为-38dB。</p>
+              <div class="tag-row"><span class="tag">降噪</span><span class="tag">TWS</span><span class="tag">横评</span></div>
+              <div class="card-meta"><span class="hot">热度 8.8万</span><span>11月5日更新</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/shenhai2/400/300" width="400" height="300" loading="lazy" alt="《深海2》动画电影海报">
+            <div class="card-body">
+              <span class="type-tag">动画电影</span>
+              <h3>《深海2》定档12月20日</h3>
+              <p>光线传媒11月5日发布首支预告，粒子水墨风格延续。预告片B站播放量48小时破320万，弹幕讨论集中在导演田晓鹏的叙事节奏。</p>
+              <div class="tag-row"><span class="tag">国产动画</span><span class="tag">定档</span><span class="tag">预告</span></div>
+              <div class="card-meta"><span class="hot">热度 15.3万</span><span>11月5日发布</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/miwu2/400/300" width="400" height="300" loading="lazy" alt="《迷雾侦探2》游戏截图">
+            <div class="card-body">
+              <span class="type-tag">解谜游戏</span>
+              <h3>《迷雾侦探2》正式版</h3>
+              <p>Steam好评率89%，差评集中在第五章掉帧和提示缺失。TapTap评分8.2。玩家社区讨论最多的是结尾反转是否合理。</p>
+              <div class="tag-row"><span class="tag">解谜</span><span class="tag">Steam</span><span class="tag">像素风</span></div>
+              <div class="card-meta"><span class="hot">热度 6.4万</span><span>11月4日上线</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/xunipai/400/300" width="400" height="300" loading="lazy" alt="虚拟拍摄棚工作照">
+            <div class="card-body">
+              <span class="type-tag">产业</span>
+              <h3>爱奇艺虚拟拍摄棚使用率+42%</h3>
+              <p>11月4日公布Q3数据，LED环幕使用时长同比提升42%。《大梦归离》第二季全程采用虚拟拍摄，单集制作周期缩短3天。</p>
+              <div class="tag-row"><span class="tag">虚拟制作</span><span class="tag">LED环幕</span><span class="tag">剧集</span></div>
+              <div class="card-meta"><span class="hot">热度 4.7万</span><span>11月4日发布</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 最新更新 / 动态 -->
+      <section id="updates" class="section">
+        <div class="section-head">
+          <h2>最新更新：11月7日—8日条目动态</h2>
+        </div>
+        <div class="list-compact">
+          <div class="list-item">
+            <span class="item-index">01</span>
+            <div class="item-content">
+              <h3>《星际拓荒者》第3集上线</h3>
+              <p>11月8日10:00上线流媒体，首小时弹幕量8.2万条，豆瓣开分7.9，短评区争议集中在旁白占比。</p>
+            </div>
+            <span class="item-date">11月8日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">02</span>
+            <div class="item-content">
+              <h3>Steam秋季新品节试玩榜单公布</h3>
+              <p>11月6日结束，下载量前三《深岩回响》《像素农场2077》《海雾》，独立游戏试玩版平均时长47分钟。</p>
+            </div>
+            <span class="item-date">11月7日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">03</span>
+            <div class="item-content">
+              <h3>索尼WF-1000XM6固件更新2.1.0</h3>
+              <p>11月7日推送，修复LDAC连接偶发断连，新增EQ自定义档位。用户社区反馈续航未受影响。</p>
+            </div>
+            <span class="item-date">11月7日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">04</span>
+            <div class="item-content">
+              <h3>《大梦归离》第二季虚拟拍摄特辑</h3>
+              <p>11月6日发布幕后特辑，LED环幕面积1200平方米，单集虚拟场景占比67%。导演郭敬明在特辑中谈调度逻辑。</p>
+            </div>
+            <span class="item-date">11月6日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">05</span>
+            <div class="item-content">
+              <h3>《哪吒之魔童闹海》重映定档11月15日</h3>
+              <p>11月5日官宣，重映版增加3分钟未曝光片段。光线传媒股价当日收涨2.3%。</p>
+            </div>
+            <span class="item-date">11月5日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">06</span>
+            <div class="item-content">
+              <h3>10月CPI数据公布，同比+0.3%</h3>
+              <p>11月7日国家统计局发布，环比+0.1%。券商晨报11月8日集中调整消费板块Q4盈利预测。</p>
+            </div>
+            <span class="item-date">11月7日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">07</span>
+            <div class="item-content">
+              <h3>《雄狮少年3》定档2027年1月</h3>
+              <p>11月6日片方公布档期，同步释出概念海报。前作票房累计8.7亿。</p>
+            </div>
+            <span class="item-date">11月6日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">08</span>
+            <div class="item-content">
+              <h3>晶晨S928X盒子芯片跑分曝光</h3>
+              <p>11月5日数码论坛流出Geekbench 6数据，单核689，多核2140。支持8K解码，功耗较上代提升12%。</p>
+            </div>
+            <span class="item-date">11月5日</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 分类入口 -->
+      <section id="categories" class="section">
+        <div class="section-head">
+          <h2>分类入口：按内容类型查找</h2>
+        </div>
+        <div class="cat-grid">
+          <a href="/#focus" class="cat-item"><span class="cat-icon">🎬</span>科幻剧集</a>
+          <a href="/#focus" class="cat-item"><span class="cat-icon">🎮</span>独立游戏</a>
+          <a href="/#focus" class="cat-item"><span class="cat-icon">🎧</span>降噪耳机</a>
+          <a href="/#focus" class="cat-item"><span class="cat-icon">🎥</span>国产动画</a>
+          <a href="/#focus" class="cat-item"><span class="cat-icon">📺</span>电视盒子</a>
+          <a href="/#focus" class="cat-item"><span class="cat-icon">📊</span>财经数据</a>
+          <a href="/#focus" class="cat-item"><span class="cat-icon">🎞️</span>虚拟制作</a>
+          <a href="/#focus" class="cat-item"><span class="cat-icon">🧩</span>解谜游戏</a>
+        </div>
+      </section>
+
+      <!-- 深度解析正文 -->
+      <section id="deep-dive" class="section">
+        <div class="section-head">
+          <h2>深度解析：条目判断与类型差异</h2>
+        </div>
+        <div class="article-body">
+          <h3>科幻剧集的时间循环设定，第3集才真正立住</h3>
+          <p>《星际拓荒者》前两集用舱体编号和船员日志埋了两条线索：编号规律对应循环次数，日志缺失页对应记忆断点。第3集把这些信息收束到一次完整的推演里。豆瓣短评区目前7.6分，差评集中在旁白信息量过大——有一说一，第3集开篇4分钟用了三段旁白解释循环逻辑，对白比例降到全剧最低。这集的判断价值不在评分，在它把“循环内外的信息差”做成了可核对的表格：角色A知道什么、角色B不知道什么、观众比角色多知道什么。这张表如果后续不崩，剧集的设定深度就站住了。反过来，第4集预告里出现的新角色没有进入这张表，风险点在这里。</p>
+          <h3>Steam新品节试玩版的筛选逻辑：下载量不等于完成率</h3>
+          <p>《深岩回响》下载量第一，但B站UP主“老戴”的完整实况播放量41万，弹幕里讨论最多的是第47分钟的一个声波解谜。试玩版时长2.5小时，能撑住完整流程的玩家比例估算在六成左右。对比《像素农场2077》试玩版平均时长47分钟的数据，差距在解谜密度和引导节奏。判断一个试玩版值不值得投入时间，看两个指标：B站完整实况的时长和弹幕密度。时长超过2小时且弹幕集中在解谜节点的，通常正式版不会太差。时长不足1小时且弹幕全是吐槽引导的，建议等正式版。</p>
+          <h3>降噪耳机横评：-42dB和-38dB在通勤场景差多少</h3>
+          <p>索尼WF-1000XM6地铁场景实测-42dB，华为FreeBuds Pro 5实测-38dB。4dB的差距在低频噪音（地铁轮轨声，集中在100-300Hz）上体现为：索尼基本能压到耳语级别，华为还能听到持续的低频嗡鸣。但华为在风噪抑制上反超，骑行场景风噪降低比索尼多6dB。价格差400元。购买决策可以按通勤方式拆：地铁+步行选索尼，骑行+跑步选华为。横评里还有一个容易被忽略的指标——通透模式自然度，索尼得分8.1，华为7.6，Bose QC Ultra 2得分8.4。如果经常需要戴着耳机和人说话，Bose更顺。</p>
+          <h3>国产动画定档背后的档期博弈</h3>
+          <p>《深海2》定档12月20日，紧贴贺岁档前哨。《雄狮少年3》直接跳到2027年1月，避开2026年12月的三部大体量动画。《哪吒之魔童闹海》重映选在11月15日，填补11月国产动画空窗。这三条定档信息放在一起看，能读出片方对档期容量的判断：12月20日那个周末，目前只有《深海2》一部大体量动画定档，竞争密度低。光线传媒11月5日发布预告后股价涨2.3%，市场用脚投票。风险点在于，12月20日离元旦档只隔10天，如果元旦档有新片提档，《深海2》的排片窗口会被压缩。</p>
+        </div>
+      </section>
+
+      <!-- 体验指南 -->
+      <section id="guide" class="section">
+        <div class="section-head">
+          <h2>体验指南：内容消费的顺序与判断依据</h2>
+        </div>
+        <div class="article-body" style="padding:22px 26px;">
+          <p>面对一堆条目，先分清楚哪些是“时效性消费”，哪些是“长尾消费”。剧集和游戏试玩属于时效性消费，窗口期通常五到七天。数码横评和深度解析属于长尾消费，三个月内翻出来看仍然有效。财经数据介于两者之间，一周内有效。</p>
+          <p>判断一个条目值不值得投入时间，按这个顺序核对：第一，有没有具体日期和数字。第二，数据出处是官方发布还是社区转述。《星际拓荒者》第3集的豆瓣评分是官方数据，弹幕量是平台公开数据，两者可核对。第三，同类条目有没有对比对象。降噪耳机横评之所以有参考价值，是因为三款产品在同一场景下测了同一组指标。如果只有单品评测，参考价值直接打对折。</p>
+          <p>比较类似条目时，优先看差评和争议点，而不是好评。好评往往趋同，差评更能暴露边界。《迷雾侦探2》的差评集中在第五章掉帧和提示缺失，这两条比“剧情好”更能帮人判断要不要买。还有一个笨办法：去B站搜完整实况，看UP主在哪个节点卡住、卡了多久。卡关时间超过20分钟且弹幕开始刷“劝退”的，基本可以绕开。</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="section">
+        <div class="section-head">
+          <h2>常见问答：6个具体问题</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>《星际拓荒者》第3集值得追吗？</summary>
+            <div class="faq-answer">第3集把时间循环解释清楚，节奏比前两集慢，但埋了三个后续伏笔。豆瓣短评区目前7.6分，差评集中在旁白太多。适合喜欢硬科幻设定的观众。</div>
+          </details>
+          <details>
+            <summary>Steam新品节2026秋季有哪些值得试玩的独立游戏？</summary>
+            <div class="faq-answer">《深岩回响》《像素农场2077》《海雾》三款试玩版下载量均过十万。其中《深岩回响》在B站已有UP主做完整流程，约2.5小时。</div>
+          </details>
+          <details>
+            <summary>降噪耳机和HiFi耳机怎么选？</summary>
+            <div class="faq-answer">通勤场景优先降噪，声场和解析力通常弱于同价位HiFi；固定室内听歌选HiFi，但需搭配前端。2026年双十一降噪旗舰集中在1500-2000元档。</div>
+          </details>
+          <details>
+            <summary>国产动画电影2026年有哪些定档？</summary>
+            <div class="faq-answer">《深海2》定档2026年12月20日，《雄狮少年3》定档2027年1月，光线传媒《哪吒之魔童闹海》重映版11月15日上线。</div>
+          </details>
+          <details>
+            <summary>电视盒子芯片性能怎么看？</summary>
+            <div class="faq-answer">主要看GPU型号和内存带宽。晶晨S928X支持8K解码但功耗高，瑞芯微RK3588多核跑分更强。2026年主流盒子已标配4GB内存。</div>
+          </details>
+          <details>
+            <summary>独立游戏《迷雾侦探2》口碑如何？</summary>
+            <div class="faq-answer">Steam好评率89%，差评集中在解谜提示太少和第五章掉帧。TapTap评分8.2，玩家讨论集中在剧情反转是否合理。</div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 用户评论 -->
+      <section id="comments" class="section">
+        <div class="section-head">
+          <h2>用户评论：12条真实语气反馈</h2>
+        </div>
+        <div class="comment-list">
+          <div class="comment">
+            <div class="avatar">星</div>
+            <div class="comment-body">
+              <div class="nickname">星际漫游者_07</div>
+              <div class="text">第3集那个循环表格我暂停看了两遍，确实把信息差讲明白了。但旁白真的多，第4分钟那段我直接快进了。</div>
+              <div class="meta">11月8日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">深</div>
+            <div class="comment-body">
+              <div class="nickname">深岩打工人</div>
+              <div class="text">《深岩回响》试玩版2.5小时一口气打完，声波解谜那关卡了半小时。正式版出了肯定买，就是希望引导能再好点。</div>
+              <div class="meta">11月7日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">耳</div>
+            <div class="comment-body">
+              <div class="nickname">耳机退烧友</div>
+              <div class="text">索尼-42dB和华为-38dB的差距在地铁上真听得出来，4dB不是纸面参数。但华为便宜400块，看个人取舍。</div>
+              <div class="meta">11月7日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">迷</div>
+            <div class="comment-body">
+              <div class="nickname">迷雾通关了</div>
+              <div class="text">第五章掉帧确实烦，解谜提示少我倒觉得是优点，自己推出来更有成就感。89%好评率算合理。</div>
+              <div class="meta">11月6日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">动</div>
+            <div class="comment-body">
+              <div class="nickname">动画圈老张</div>
+              <div class="text">《深海2》预告片粒子水墨还是顶，但剧情别像第一部那样后半段赶工就行。12月20日档期选得聪明。</div>
+              <div class="meta">11月6日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">盒</div>
+            <div class="comment-body">
+              <div class="nickname">电视盒子玩家</div>
+              <div class="text">S928X跑分出来了，单核689，比RK3588低不少。8K解码现在片源都没几个，买盒子还是看内存带宽实在。</div>
+              <div class="meta">11月5日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">财</div>
+            <div class="comment-body">
+              <div class="nickname">CPI观察员</div>
+              <div class="text">10月CPI +0.3%，环比+0.1%，数据本身没太多意外。券商晨报调消费板块预测，更多是预期管理。</div>
+              <div class="meta">11月8日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">随</div>
+            <div class="comment-body">
+              <div class="nickname">随便看看_</div>
+              <div class="text">今天地铁上试了下朋友的XM6，降噪确实猛。自己的FreeBuds Pro 5瞬间不香了，但钱包说再想想。</div>
+              <div class="meta">11月7日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">虚</div>
+            <div class="comment-body">
+              <div class="nickname">虚拟制片小刘</div>
+              <div class="text">LED环幕1200平，单集虚拟场景67%，这个数据在业内算高的。但虚拟拍摄省下来的时间会不会被后期吃掉，还得看成片。</div>
+              <div class="meta">11月6日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">路</div>
+            <div class="comment-body">
+              <div class="nickname">路人甲不甲</div>
+              <div class="text">《雄狮少年3》直接跳到2027年1月，这是怕了12月的《深海2》吧？不过避开也好，省得两败俱伤。</div>
+              <div class="meta">11月6日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">大</div>
+            <div class="comment-body">
+              <div class="nickname">大梦追完了</div>
+              <div class="text">《大梦归离》第二季虚拟拍摄特辑看了，调度确实流畅，但演员对着空气演戏的痕迹还是能看出来。不是黑，就是实话。</div>
+              <div class="meta">11月5日</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">新</div>
+            <div class="comment-body">
+              <div class="nickname">新品节肝帝</div>
+              <div class="text">《像素农场2077》试玩47分钟结束，节奏轻快，适合摸鱼。就是内容量有点少，正式版不加东西的话可能等打折。</div>
+              <div class="meta">11月7日</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关资讯 -->
+      <section id="news" class="section">
+        <div class="section-head">
+          <h2>相关资讯：6条领域动态</h2>
+        </div>
+        <div class="news-grid">
+          <article class="news-card">
+            <img src="https://picsum.photos/seed/news1/600/400" width="600" height="400" loading="lazy" alt="国家统计局发布10月CPI数据">
+            <div class="news-body">
+              <div class="date">11月7日</div>
+              <h3>10月CPI同比上涨0.3%，环比+0.1%</h3>
+              <p>国家统计局11月7日发布，食品价格同比上涨1.2%，非食品价格持平。多家券商11月8日晨报下调Q4消费板块盈利预测约2个百分点。</p>
+            </div>
+          </article>
+          <article class="news-card">
+            <img src="https://picsum.photos/seed/news2/600/400" width="600" height="400" loading="lazy" alt="Steam秋季新品节页面截图">
+            <div class="news-body">
+              <div class="date">11月6日</div>
+              <h3>Steam秋季新品节闭幕，试玩下载量同比增18%</h3>
+              <p>11月6日结束，官方公布试玩版总下载量同比提升18%。《深岩回响》以12.6万次下载居首，独立游戏试玩版平均时长47分钟。</p>
+            </div>
+          </article>
+          <article class="news-card">
+            <img src="https://picsum.photos/seed/news3/600/400" width="600" height="400" loading="lazy" alt="索尼耳机固件更新界面">
+            <div class="news-body">
+              <div class="date">11月7日</div>
+              <h3>索尼WF-1000XM6推送2.1.0固件，修复LDAC断连</h3>
+              <p>11月7日推送，更新日志显示修复LDAC连接偶发断连，新增自定义EQ档位。用户社区反馈续航未受影响，降噪深度保持-42dB。</p>
+            </div>
+          </article>
+          <article class="news-card">
+            <img src="https://picsum.photos/seed/news4/600/400" width="600" height="400" loading="lazy" alt="《深海2》预告片画面">
+            <div class="news-body">
+              <div class="date">11月5日</div>
+              <h3>《深海2》首支预告48小时播放320万</h3>
+              <p>光线传媒11月5日发布，B站播放量48小时破320万，弹幕讨论集中在粒子水墨风格和导演田晓鹏的叙事节奏。影片定档12月20日。</p>
+            </div>
+          </article>
+          <article class="news-card">
+            <img src="https://picsum.photos/seed/news5/600/400" width="600" height="400" loading="lazy" alt="晶晨S928X芯片示意图">
+            <div class="news-body">
+              <div class="date">11月5日</div>
+              <h3>晶晨S928X跑分曝光：单核689，多核2140</h3>
+              <p>11月5日数码论坛流出Geekbench 6数据，支持8K解码，功耗较上代提升12%。瑞芯微RK3588多核跑分2380，仍占优势。</p>
+            </div>
+          </article>
+          <article class="news-card">
+            <img src="https://picsum.photos/seed/news6/600/400" width="600" height="400" loading="lazy" alt="《迷雾侦探2》游戏画面">
+            <div class="news-body">
+              <div class="date">11月4日</div>
+              <h3>《迷雾侦探2》正式版Steam好评率89%</h3>
+              <p>11月4日上线，首日同时在线峰值3.2万。差评集中在第五章掉帧和解谜提示缺失。TapTap评分8.2，社区讨论集中在剧情反转。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 相关推荐 -->
+      <section id="recommend" class="section">
+        <div class="section-head">
+          <h2>相关推荐：具体内容方向索引</h2>
+        </div>
+        <div class="tag-index">
+          <a href="/#focus">时间循环剧集盘点</a>
+          <a href="/#focus">Steam试玩版避坑</a>
+          <a href="/#focus">LDAC连接稳定性</a>
+          <a href="/#focus">粒子水墨动画</a>
+          <a href="/#focus">8K盒子解码测试</a>
+          <a href="/#focus">虚拟拍摄棚成本</a>
+          <a href="/#focus">国产动画档期分析</a>
+          <a href="/#focus">解谜游戏提示设计</a>
+        </div>
+      </section>
+
+      <!-- 补充板块：热门榜单 + 投稿互动 -->
+      <section id="rank" class="section">
+        <div class="section-head">
+          <h2>热门榜单：11月7日—8日条目热度</h2>
+        </div>
+        <div class="list-compact">
+          <div class="list-item">
+            <span class="item-index">1</span>
+            <div class="item-content"><h3>《深海2》定档预告</h3><p>热度15.3万 · B站播放320万 · 定档12月20日</p></div>
+            <span class="item-date">11月5日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">2</span>
+            <div class="item-content"><h3>《深岩回响》试玩版</h3><p>热度12.6万 · Steam下载第一 · 实况播放41万</p></div>
+            <span class="item-date">11月6日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">3</span>
+            <div class="item-content"><h3>《星际拓荒者》第3集</h3><p>热度9.2万 · 豆瓣7.6 · 首小时弹幕8.2万</p></div>
+            <span class="item-date">11月8日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">4</span>
+            <div class="item-content"><h3>降噪耳机Q3横评</h3><p>热度8.8万 · 三款旗舰实测 · 索尼-42dB</p></div>
+            <span class="item-date">11月5日</span>
+          </div>
+          <div class="list-item">
+            <span class="item-index">5</span>
+            <div class="item-content"><h3>《迷雾侦探2》正式版</h3><p>热度6.4万 · Steam好评89% · TapTap 8.2</p></div>
+            <span class="item-date">11月4日</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="submit" class="section">
+        <div class="section-head">
+          <h2>投稿 / 交流</h2>
+        </div>
+        <div class="article-body" style="padding:22px 26px;">
+          <p>有具体的条目线索、试玩体验或购买参考想分享？这里接受条目投稿和话题交流。格式不用太正式，写清楚：条目名、时间、数据出处，以及一句你的判断。例如：“《深岩回响》试玩版第47分钟声波解谜卡了半小时，引导不足，但解谜逻辑自洽。”带上日期和来源，会优先整理进更新流。交流区不欢迎无信息量的“顶”“好”，但允许半截话和吐槽，只要指向具体对象。</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右侧辅助栏 -->
+    <aside class="sidebar" aria-label="辅助信息">
+      <div class="side-panel">
+        <h3>条目热度榜</h3>
+        <ul class="rank-list">
+          <li><span class="rank-num">1</span><span class="rank-title">《深海2》定档12月20日</span></li>
+          <li><span class="rank-num">2</span><span class="rank-title">《深岩回响》试玩版</span></li>
+          <li><span class="rank-num">3</span><span class="rank-title">《星际拓荒者》第3集</span></li>
+          <li><span class="rank-num">4</span><span class="rank-title">降噪耳机Q3横评</span></li>
+          <li><span class="rank-num">5</span><span class="rank-title">《迷雾侦探2》正式版</span></li>
+        </ul>
+      </div>
+      <div class="side-panel">
+        <h3>今日更新</h3>
+        <ul class="update-list">
+          <li><span>《星际拓荒者》第3集</span><span>11月8日</span></li>
+          <li><span>CPI数据解读</span><span>11月7日</span></li>
+          <li><span>索尼耳机固件</span><span>11月7日</span></li>
+          <li><span>Steam新品节榜单</span><span>11月7日</span></li>
+          <li><span>《深海2》预告破320万</span><span>11月5日</span></li>
+        </ul>
+      </div>
+      <div class="side-panel">
+        <h3>投稿入口</h3>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">有具体条目线索？<a href="/#submit" style="color:var(--brand);font-weight:600;text-decoration:underline;">提交到交流区</a>，注明时间与来源。</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-footer">
+            <svg viewBox="0 0 64 64" fill="none" width="24" height="24" aria-hidden="true">
+              <rect width="64" height="64" rx="14" fill="#f2b84b"/>
+              <path d="M18 40 32 14l14 26H18Z" fill="#1b2b4b"/>
+            </svg>
+            <span>看料13yandex</span>
+          </div>
+          <p>覆盖2026年10月至11月的影视、游戏、数码、财经条目，以具体日期、数字和来源为锚点，每天更新条目清单与判断参考。</p>
+        </div>
+        <div class="footer-col">
+          <h4>内容分类</h4>
+          <a href="/#focus">科幻剧集</a>
+          <a href="/#focus">独立游戏</a>
+          <a href="/#focus">降噪耳机</a>
+          <a href="/#focus">国产动画</a>
+        </div>
+        <div class="footer-col">
+          <h4>互动</h4>
+          <a href="/#submit">投稿 / 交流</a>
+          <a href="/#comments">用户评论</a>
+          <a href="/#rank">热门榜单</a>
+          <a href="/#news">相关资讯</a>
+        </div>
+        <div class="footer-col">
+          <h4>关于</h4>
+          <a href="/#overview">领域概览</a>
+          <a href="/#deep-dive">深度解析</a>
+          <a href="/#guide">体验指南</a>
+          <a href="/#faq">常见问答</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>示例内容聚合页 · 条目数据为演示用途 · 更新至2026年11月8日</span>
+        <span>© 2026 看料13yandex</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部 -->
+  <button class="back-top" id="back-top" aria-label="回到顶部">↑</button>
+
+  <script>
+    (function() {
+      // 移动端菜单
+      var hamburger = document.getElementById('hamburger');
+      var mobileNav = document.getElementById('mobile-nav');
+      var mobileOverlay = document.getElementById('mobile-overlay');
+      var mobileClose = document.getElementById('mobile-close');
+      var mobileLinks = mobileNav.querySelectorAll('a');
+
+      function openMenu() {
+        mobileNav.style.display = 'block';
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        mobileClose.focus();
+      }
+      function closeMenu() {
+        mobileNav.style.display = 'none';
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        hamburger.focus();
+      }
+      if (hamburger) {
+        hamburger.addEventListener('click', function() {
+          if (mobileNav.style.display === 'block') { closeMenu(); } else { openMenu(); }
+        });
+      }
+      if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+      if (mobileClose) mobileClose.addEventListener('click', closeMenu);
+      mobileLinks.forEach(function(link) { link.addEventListener('click', closeMenu); });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileNav.style.display === 'block') closeMenu();
+      });
+
+      // 回到顶部
+      var backTop = document.getElementById('back-top');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 600) {
+          backTop.classList.add('visible');
+        } else {
+          backTop.classList.remove('visible');
+        }
+      });
+      backTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // 搜索筛选
+      var searchInput = document.getElementById('site-search');
+      var searchBtn = document.getElementById('search-btn');
+      function doSearch() {
+        var q = searchInput.value.trim().toLowerCase();
+        if (!q) return;
+        var cards = document.querySelectorAll('.card-grid .card');
+        var visibleCount = 0;
+        cards.forEach(function(card) {
+          var text = card.textContent.toLowerCase();
+          if (text.indexOf(q) > -1) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        var grid = document.getElementById('focus-grid');
+        var oldMsg = grid.querySelector('.search-empty');
+        if (oldMsg) oldMsg.remove();
+        if (visibleCount === 0) {
+          var msg = document.createElement('p');
+          msg.className = 'search-empty';
+          msg.style.cssText = 'grid-column:1/-1;text-align:center;padding:40px 0;color:var(--text-muted);font-size:14px;';
+          msg.textContent = '未找到匹配条目，试试“星际”“耳机”“Steam”等关键词。';
+          grid.appendChild(msg);
+        }
+      }
+      if (searchBtn) searchBtn.addEventListener('click', doSearch);
+      if (searchInput) searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); doSearch(); }
+      });
+
+      // 频道高亮
+      var sections = document.querySelectorAll('main section[id]');
+      var navLinks = document.querySelectorAll('.channel-index a');
+      if (sections.length && navLinks.length) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '/#' + entry.target.id) {
+                  link.classList.add('active');
+                }
+              });
+            }
+          });
+        }, { rootMargin: '-20% 0px -60% 0px' });
+        sections.forEach(function(s) { observer.observe(s); });
+      }
+    })();
+  </script>
+</body>
+              </html>
