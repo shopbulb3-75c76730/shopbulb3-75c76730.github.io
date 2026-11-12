@@ -1,0 +1,2001 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>www.cgbdy17.com - 电影资源聚合与导航</title>
+  <meta name="description" content="www.cgbdy17.com 汇集华语电影、欧美剧集、日韩资源与4K修复专区，提供最新更新条目、影评人深度解析、分类索引和用户评论。适合影迷快速定位可看内容与版本差异。">
+  <meta name="keywords" content="www.cgbdy17.com">
+  <style>
+    /* ---------- 全局变量与基础重置 ---------- */
+    :root {
+      --primary: #1e3c5c;
+      --primary-light: #2b5a80;
+      --primary-dark: #0f2a40;
+      --accent: #c44536;
+      --bg: #f8f6f2;
+      --surface: #ffffff;
+      --text-primary: #1a1f24;
+      --text-secondary: #4a5568;
+      --text-tertiary: #7b8794;
+      --divider: #e2e1de;
+      --radius-card: 14px;
+      --radius-btn: 8px;
+      --radius-tag: 20px;
+      --shadow-default: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.1);
+      --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-mono: 'SF Mono', 'Cascadia Code', monospace;
+      --header-height: 72px;
+      --announce-height: 40px;
+      --sticky-offset: calc(var(--announce-height) + var(--header-height));
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--sticky-offset);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* ---------- 吸顶公告条 ---------- */
+    .announce-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--primary-dark);
+      color: #e9ecef;
+      height: var(--announce-height);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-size: 0.82rem;
+      padding: 0 1.5rem;
+    }
+
+    .announce-bar .brand-mini {
+      font-weight: 700;
+      color: #fff;
+      margin-right: 1.5rem;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .announce-scroll {
+      display: flex;
+      gap: 2.5rem;
+      animation: none;
+      white-space: nowrap;
+    }
+
+    .announce-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .announce-item .date {
+      color: #ffd166;
+      font-weight: 600;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .announce-scroll {
+        animation: marquee 30s linear infinite;
+      }
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ---------- 吸顶页头 ---------- */
+    .site-header {
+      position: sticky;
+      top: var(--announce-height);
+      z-index: 99;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--divider);
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+    }
+
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .logo-svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .logo-text {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 0.2rem;
+      flex: 1;
+      margin-left: 1rem;
+    }
+
+    .main-nav a {
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-btn);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .main-nav a:hover,
+    .main-nav a:focus-visible {
+      background: var(--primary-light);
+      color: #fff;
+      outline: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+      border: 1px solid var(--divider);
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--primary);
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.2rem;
+      font-size: 0.85rem;
+      width: 140px;
+      outline: none;
+      color: var(--text-primary);
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .search-box button {
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      color: var(--text-tertiary);
+      display: flex;
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--divider);
+      border-radius: var(--radius-btn);
+      padding: 0.35rem 0.5rem;
+      font-size: 1.3rem;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+
+    /* ---------- 首屏 ---------- */
+    .hero {
+      max-width: 1360px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #e7eef5 0%, #f0ede8 50%, #e3e8ed 100%);
+      border-radius: 24px;
+      padding: 2.8rem 3rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .hero-content {
+      flex: 1 1 400px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(30, 60, 92, 0.08);
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.3px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: #fff;
+      padding: 0.7rem 1.6rem;
+      border-radius: var(--radius-btn);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      color: var(--primary);
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius-btn);
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid var(--primary);
+      transition: background 0.2s;
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+      background: rgba(30, 60, 92, 0.06);
+      outline: none;
+    }
+
+    .hero-visual {
+      flex: 0 0 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 0;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+    }
+
+    /* ---------- 主布局：三栏门户 ---------- */
+    .page-layout {
+      max-width: 1360px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) 240px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* ---------- 左频道索引 ---------- */
+    .channel-sidebar {
+      position: sticky;
+      top: var(--sticky-offset);
+      padding-top: 0.5rem;
+    }
+
+    .channel-sidebar h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-tertiary);
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    .channel-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .channel-list a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: var(--radius-btn);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      font-weight: 500;
+    }
+
+    .channel-list a:hover,
+    .channel-list a:focus-visible,
+    .channel-list a.active {
+      background: var(--primary-light);
+      color: #fff;
+      outline: none;
+    }
+
+    .channel-list a .ch-icon {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      width: 1.2rem;
+      text-align: center;
+    }
+
+    /* ---------- 主内容区 ---------- */
+    .main-content {
+      min-width: 0;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .section-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: -0.3px;
+    }
+
+    .section-header .section-sub {
+      font-size: 0.85rem;
+      color: var(--text-tertiary);
+    }
+
+    /* 概览段落 */
+    .overview-text {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 1.6rem 1.8rem;
+      box-shadow: var(--shadow-default);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .overview-text p + p {
+      margin-top: 0.8rem;
+    }
+
+    /* 精选卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 1rem 1.1rem;
+      box-shadow: var(--shadow-default);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card .card-type {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .card .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--primary-dark);
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .card .card-desc {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0.7rem;
+      flex: 1;
+    }
+
+    .card .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--bg);
+      border-radius: var(--radius-tag);
+      padding: 0.15rem 0.6rem;
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      border: 1px solid var(--divider);
+    }
+
+    .card .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      border-top: 1px solid var(--divider);
+      padding-top: 0.5rem;
+      margin-top: auto;
+    }
+
+    .card .card-meta .hot {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* 最新动态列表 */
+    .update-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .update-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.65rem 0.9rem;
+      background: var(--surface);
+      border-radius: var(--radius-btn);
+      box-shadow: var(--shadow-default);
+      transition: box-shadow 0.2s;
+      font-size: 0.88rem;
+    }
+
+    .update-item:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .update-item .update-date {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      font-family: var(--font-mono);
+      min-width: 4.5rem;
+    }
+
+    .update-item .update-title {
+      font-weight: 600;
+      color: var(--primary-dark);
+      white-space: nowrap;
+    }
+
+    .update-item .update-summary {
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* 分类入口 */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.7rem;
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border-radius: var(--radius-btn);
+      padding: 0.8rem 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      box-shadow: var(--shadow-default);
+      transition: background 0.2s, color 0.2s;
+      text-align: center;
+    }
+
+    .category-item:hover,
+    .category-item:focus-visible {
+      background: var(--primary);
+      color: #fff;
+      outline: none;
+    }
+
+    /* 深度解析 */
+    .deep-analysis {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 1.8rem 2rem;
+      box-shadow: var(--shadow-default);
+    }
+
+    .deep-analysis h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-top: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .deep-analysis h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .deep-analysis p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 0.7rem;
+    }
+
+    .deep-analysis ul {
+      margin: 0.5rem 0 0.8rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .deep-analysis li {
+      margin-bottom: 0.2rem;
+    }
+
+    /* 体验指南 */
+    .guide-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .guide-step {
+      display: flex;
+      gap: 1rem;
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow-default);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .step-content h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .step-content p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border-radius: var(--radius-btn);
+      box-shadow: var(--shadow-default);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 0.9rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--primary-dark);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] summary::after {
+      content: '−';
+    }
+
+    .faq-item summary:hover {
+      background: var(--bg);
+    }
+
+    .faq-item .faq-answer {
+      padding: 0 1.2rem 1rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      border-top: 1px solid var(--divider);
+      padding-top: 0.8rem;
+    }
+
+    /* 用户评论 */
+    .comment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .comment-card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow-default);
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .comment-card .comment-user {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .comment-card .comment-user .badge {
+      background: var(--bg);
+      border-radius: 999px;
+      padding: 0 0.4rem;
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+
+    /* 相关资讯 */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .news-item {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow-default);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .news-item .news-date {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      min-width: 4.5rem;
+      padding-top: 0.15rem;
+    }
+
+    .news-item .news-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .news-item .news-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .news-item .news-summary {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 相关推荐 */
+    .recommend-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .recommend-tag {
+      background: var(--surface);
+      border: 1px solid var(--divider);
+      border-radius: var(--radius-tag);
+      padding: 0.4rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--primary);
+      transition: background 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .recommend-tag:hover,
+    .recommend-tag:focus-visible {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    /* 补充板块：榜单 */
+    .rank-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .rank-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--surface);
+      border-radius: var(--radius-btn);
+      padding: 0.55rem 0.9rem;
+      box-shadow: var(--shadow-default);
+      font-size: 0.88rem;
+    }
+
+    .rank-num {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--text-tertiary);
+      width: 1.6rem;
+      text-align: center;
+      font-family: var(--font-mono);
+    }
+
+    .rank-num.top3 {
+      color: var(--accent);
+    }
+
+    .rank-title {
+      font-weight: 600;
+      color: var(--primary-dark);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rank-score {
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    /* ---------- 右辅助栏 ---------- */
+    .aux-sidebar {
+      position: sticky;
+      top: var(--sticky-offset);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .aux-card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-default);
+    }
+
+    .aux-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.2px;
+    }
+
+    .hot-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .hot-list li a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--divider);
+      transition: color 0.15s;
+    }
+
+    .hot-list li:last-child a {
+      border-bottom: none;
+    }
+
+    .hot-list li a:hover {
+      color: var(--primary);
+    }
+
+    .hot-list .hot-index {
+      font-weight: 700;
+      color: var(--text-tertiary);
+      font-size: 0.75rem;
+      width: 1.2rem;
+      font-family: var(--font-mono);
+    }
+
+    .hot-list .hot-title {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hot-list .hot-badge {
+      font-size: 0.65rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0 0.35rem;
+      border-radius: 999px;
+      line-height: 1.4;
+    }
+
+    .quick-update {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .quick-update .qu-item {
+      margin-bottom: 0.4rem;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .quick-update .qu-date {
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    /* ---------- 页尾 ---------- */
+    .site-footer {
+      background: var(--primary-dark);
+      color: #b0c4d4;
+      margin-top: 3rem;
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      flex: 1 1 280px;
+    }
+
+    .footer-brand .footer-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      max-width: 360px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h4 {
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 0.82rem;
+      padding: 0.2rem 0;
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 1.2rem;
+      font-size: 0.78rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      color: #7f9bb0;
+    }
+
+    /* ---------- 回到顶部 ---------- */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 90;
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-hover);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+      transform: translateY(8px);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---------- 移动端菜单遮罩 ---------- */
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 98;
+    }
+
+    .menu-overlay.active {
+      display: block;
+    }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1024px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .channel-sidebar {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        gap: 0.3rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .channel-sidebar h2 {
+        display: none;
+      }
+
+      .channel-list {
+        flex-direction: row;
+        gap: 0.3rem;
+      }
+
+      .channel-list a {
+        white-space: nowrap;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.82rem;
+      }
+
+      .aux-sidebar {
+        position: static;
+      }
+
+      .main-nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 740px) {
+      .hero-card {
+        padding: 1.8rem 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .comment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .update-item {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+
+      .update-item .update-summary {
+        white-space: normal;
+        width: 100%;
+      }
+
+      .search-box input {
+        width: 90px;
+      }
+
+      .news-item {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      .footer-links {
+        gap: 1.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar" role="banner" aria-label="更新公告">
+    <span class="brand-mini">www.cgbdy17.com</span>
+    <div class="announce-scroll">
+      <span class="announce-item"><span class="date">11月8日</span> 新增《日掛中天》4K修复版</span>
+      <span class="announce-item"><span class="date">11月7日</span> 华语剧集《回魂计》全9集上线</span>
+      <span class="announce-item"><span class="date">11月6日</span> 欧美专区新增《小丑2》蓝光</span>
+      <span class="announce-item"><span class="date">11月8日</span> 日韩资源更新至《殺人者的購物中心》</span>
+      <span class="announce-item"><span class="date">11月5日</span> 经典老片《悲情城市》修复版入库</span>
+      <span class="announce-item"><span class="date">11月8日</span> 新增《日掛中天》4K修复版</span>
+      <span class="announce-item"><span class="date">11月7日</span> 华语剧集《回魂计》全9集上线</span>
+      <span class="announce-item"><span class="date">11月6日</span> 欧美专区新增《小丑2》蓝光</span>
+      <span class="announce-item"><span class="date">11月8日</span> 日韩资源更新至《殺人者的購物中心》</span>
+      <span class="announce-item"><span class="date">11月5日</span> 经典老片《悲情城市》修复版入库</span>
+    </div>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="36" height="36" rx="10" fill="#1e3c5c"/>
+          <path d="M12 14h16v3H12zM12 20h16v3H12zM12 26h10v3H12z" fill="#ffffff" opacity="0.9"/>
+          <circle cx="30" cy="27" r="4" fill="#c44536"/>
+        </svg>
+        <span class="logo-text">www.cgbdy17.com</span>
+      </div>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#featured">精选推荐</a>
+        <a href="/#updates">最新更新</a>
+        <a href="/#categories">分类入口</a>
+        <a href="/#analysis">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#comments">用户评论</a>
+        <a href="/#news">相关资讯</a>
+      </nav>
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="search" id="search-input" placeholder="搜片名 / 类型" aria-label="站内搜索">
+          <button type="button" aria-label="搜索" id="search-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+        </div>
+        <button class="hamburger" id="hamburger-btn" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 移动端菜单遮罩 -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+
+  <!-- 首屏 -->
+  <section class="hero" aria-label="首屏">
+    <div class="hero-card">
+      <div class="hero-content">
+        <span class="hero-label">内容聚合 · 每日更新</span>
+        <h1>www.cgbdy17.com</h1>
+        <p class="hero-desc">汇聚华语电影、欧美剧集、日韩资源与经典修复专区，提供最新更新条目、影评人深度解析、分类索引与用户真实评论。从院线下线到蓝光发布，追踪每个值得看的内容版本。</p>
+        <div class="hero-actions">
+          <a href="/#featured" class="btn-primary">浏览精选推荐</a>
+          <a href="/#updates" class="btn-secondary">查看今日更新</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="30" width="180" height="120" rx="10" fill="#1e3c5c" opacity="0.15"/>
+          <rect x="40" y="20" width="180" height="120" rx="10" fill="#1e3c5c" opacity="0.25"/>
+          <rect x="60" y="10" width="180" height="120" rx="10" fill="#1e3c5c" opacity="0.5"/>
+          <rect x="80" y="40" width="60" height="8" rx="4" fill="#ffffff" opacity="0.7"/>
+          <rect x="80" y="56" width="120" height="6" rx="3" fill="#ffffff" opacity="0.4"/>
+          <rect x="80" y="70" width="100" height="6" rx="3" fill="#ffffff" opacity="0.4"/>
+          <circle cx="220" cy="140" r="28" fill="#c44536" opacity="0.8"/>
+          <text x="220" y="145" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">4K</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主布局：三栏门户 -->
+  <div class="page-layout">
+
+    <!-- 左频道索引 -->
+    <aside class="channel-sidebar" aria-label="频道索引">
+      <h2>频道</h2>
+      <ul class="channel-list">
+        <li><a href="/#overview" class="active"><span class="ch-icon">◆</span>领域概览</a></li>
+        <li><a href="/#featured"><span class="ch-icon">▸</span>精选推荐</a></li>
+        <li><a href="/#updates"><span class="ch-icon">▸</span>最新更新</a></li>
+        <li><a href="/#categories"><span class="ch-icon">▸</span>分类入口</a></li>
+        <li><a href="/#analysis"><span class="ch-icon">▸</span>深度解析</a></li>
+        <li><a href="/#guide"><span class="ch-icon">▸</span>体验指南</a></li>
+        <li><a href="/#faq"><span class="ch-icon">▸</span>常见问题</a></li>
+        <li><a href="/#comments"><span class="ch-icon">▸</span>用户评论</a></li>
+        <li><a href="/#news"><span class="ch-icon">▸</span>相关资讯</a></li>
+        <li><a href="/#recommend"><span class="ch-icon">▸</span>相关推荐</a></li>
+        <li><a href="/#rank"><span class="ch-icon">▸</span>热门榜单</a></li>
+      </ul>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+
+      <!-- 1. 领域概览 -->
+      <section class="section" id="overview">
+        <div class="section-header">
+          <h2>电影资源领域概览</h2>
+          <span class="section-sub">覆盖院线、流媒体、蓝光与修复版</span>
+        </div>
+        <div class="overview-text">
+          <p>影视资源聚合领域大致分为几条主线：院线下线后的数字版流通、流媒体平台独播内容、蓝光原盘与4K修复、经典老片重制、日韩剧集与欧美剧集引进。华语电影方面，《日掛中天》《回魂计》等近期话题作品在11月初陆续出现高清版本；欧美方向，DC宇宙的《小丑2：双重妄想》蓝光资源已流出；日韩剧集《殺人者的購物中心》《好或壞的東載》等更新节奏较快。</p>
+          <p>观众选择资源时通常关注几个要素：画质规格（1080p还是4K HDR）、音轨版本（原声与配音）、字幕来源（官方字幕或压制组字幕）、文件大小与码率。修复版老片如《悲情城市》《牯岭街少年杀人事件》的4K修复在影迷圈中讨论度很高，主要因为修复质量直接决定观看体验。剧集方面，更新频率与是否同步完结是追剧用户的核心考量。</p>
+          <p>近期值得注意的动向包括：11月8日《日掛中天》4K修复版入库，画面比例从2.39:1调整为1.85:1的版本引发争议；11月7日《回魂计》全9集上线，舒淇与李心洁的双女主设定成为讨论焦点；11月6日《小丑2》蓝光版包含超过40分钟的幕后花絮。</p>
+        </div>
+      </section>
+
+      <!-- 2. 精选内容推荐 -->
+      <section class="section" id="featured">
+        <div class="section-header">
+          <h2>本周精选内容推荐</h2>
+          <span class="section-sub">编辑筛选 · 按热度与口碑排序</span>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-type">华语电影 · 4K修复</div>
+            <div class="card-title">日掛中天</div>
+            <div class="card-desc">辛芷蕾与张颂文主演，蔡尚君执导。4K修复版保留了胶片颗粒感，岭南小镇的潮湿氛围在HDR下层次分明，片中长达7分钟的长镜头值得逐帧看。</div>
+            <div class="card-tags"><span class="tag">剧情</span><span class="tag">4K HDR</span><span class="tag">粤语原声</span></div>
+            <div class="card-meta"><span class="hot">热度 9,842</span><span>评分 8.6</span></div>
+          </div>
+          <div class="card">
+            <div class="card-type">华语剧集 · 全9集</div>
+            <div class="card-title">回魂计</div>
+            <div class="card-desc">舒淇、李心洁、贾静雯主演的暗黑复仇剧。三条时间线交叉叙事，第6集反转后前5集的细节全部重新成立，适合一次性刷完。</div>
+            <div class="card-tags"><span class="tag">悬疑</span><span class="tag">复仇</span><span class="tag">Netflix</span></div>
+            <div class="card-meta"><span class="hot">热度 12,305</span><span>评分 8.2</span></div>
+          </div>
+          <div class="card">
+            <div class="card-type">欧美电影 · 蓝光</div>
+            <div class="card-title">小丑2：双重妄想</div>
+            <div class="card-desc">托德·菲利普斯执导，华金·菲尼克斯与Lady Gaga主演。蓝光版含40分钟幕后花絮，包括Gaga在录音棚即兴演唱《Close to You》的完整片段。</div>
+            <div class="card-tags"><span class="tag">歌舞</span><span class="tag">DC宇宙</span><span class="tag">蓝光原盘</span></div>
+            <div class="card-meta"><span class="hot">热度 8,971</span><span>评分 6.8</span></div>
+          </div>
+          <div class="card">
+            <div class="card-type">韩剧 · 更新至第6集</div>
+            <div class="card-title">殺人者的購物中心</div>
+            <div class="card-desc">李栋旭主演的动作惊悚剧。第5集仓库长镜头打斗被动作指导拆解为27个镜头，花絮在YouTube播放量突破180万次。每周三、四更新。</div>
+            <div class="card-tags"><span class="tag">动作</span><span class="tag">Disney+</span><span class="tag">李栋旭</span></div>
+            <div class="card-meta"><span class="hot">热度 7,650</span><span>评分 8.0</span></div>
+          </div>
+          <div class="card">
+            <div class="card-type">经典修复 · 4K</div>
+            <div class="card-title">悲情城市</div>
+            <div class="card-desc">侯孝贤1989年作品，4K数位修复版由意大利博洛尼亚修复实验室完成。九份取景地的雾气和室内煤油灯光源在修复后不再偏绿，色彩更接近原始底片。</div>
+            <div class="card-tags"><span class="tag">历史</span><span class="tag">台湾电影</span><span class="tag">修复版</span></div>
+            <div class="card-meta"><span class="hot">热度 5,420</span><span>评分 9.1</span></div>
+          </div>
+          <div class="card">
+            <div class="card-type">日剧 · 全8集</div>
+            <div class="card-title">好或壞的東載</div>
+            <div class="card-desc">改编自同名漫画，町田启太饰演的检察官在调查中逐步黑化。第7集法庭戏的台词密度极高，字幕组在推特上讨论翻译策略超过200条。</div>
+            <div class="card-tags"><span class="tag">法律</span><span class="tag">漫改</span><span class="tag">町田启太</span></div>
+            <div class="card-meta"><span class="hot">热度 4,880</span><span>评分 7.9</span></div>
+          </div>
+          <div class="card">
+            <div class="card-type">欧美剧集 · 全6集</div>
+            <div class="card-title">驯鹿宝贝</div>
+            <div class="card-desc">理查德·加德自编自演的黑色喜剧，改编自其真实被跟踪经历。第3集长达12分钟的独角戏在单一场景内完成，被《卫报》列为2026年最佳电视时刻候选。</div>
+            <div class="card-tags"><span class="tag">黑色喜剧</span><span class="tag">Netflix</span><span class="tag">真实改编</span></div>
+            <div class="card-meta"><span class="hot">热度 6,210</span><span>评分 8.7</span></div>
+          </div>
+          <div class="card">
+            <div class="card-type">华语电影 · 流媒体</div>
+            <div class="card-title">默视录</div>
+            <div class="card-desc">杨修华执导，李康生与巫建和主演。新加坡电影，全片以监控摄像头视角叙事，11月5日上线流媒体后引发关于“影像伦理”的讨论。</div>
+            <div class="card-tags"><span class="tag">悬疑</span><span class="tag">新加坡</span><span class="tag">监控视角</span></div>
+            <div class="card-meta"><span class="hot">热度 3,940</span><span>评分 7.2</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. 最新更新 -->
+      <section class="section" id="updates">
+        <div class="section-header">
+          <h2>最新更新动态</h2>
+          <span class="section-sub">11月8日 · 今日新增</span>
+        </div>
+        <div class="update-list">
+          <div class="update-item"><span class="update-date">11-08</span><span class="update-title">日掛中天</span><span class="update-summary">4K修复版入库，含粤语原声DTS-HD MA 5.1音轨</span></div>
+          <div class="update-item"><span class="update-date">11-08</span><span class="update-title">殺人者的購物中心</span><span class="update-summary">更新至第6集，Disney+官方中字</span></div>
+          <div class="update-item"><span class="update-date">11-07</span><span class="update-title">回魂计</span><span class="update-summary">全9集上线，Netflix官方简中字幕</span></div>
+          <div class="update-item"><span class="update-date">11-07</span><span class="update-title">小丑2：双重妄想</span><span class="update-summary">蓝光原盘提取，含40分钟幕后花絮</span></div>
+          <div class="update-item"><span class="update-date">11-06</span><span class="update-title">悲情城市</span><span class="update-summary">4K修复版入库，博洛尼亚修复实验室版本</span></div>
+          <div class="update-item"><span class="update-date">11-06</span><span class="update-title">好或壞的東載</span><span class="update-summary">全8集完结，含第7集法庭戏导演评论音轨</span></div>
+          <div class="update-item"><span class="update-date">11-05</span><span class="update-title">默视录</span><span class="update-summary">流媒体版上线，1080p Web-DL</span></div>
+          <div class="update-item"><span class="update-date">11-05</span><span class="update-title">驯鹿宝贝</span><span class="update-summary">全6集上线，含第3集独角戏未剪辑版</span></div>
+          <div class="update-item"><span class="update-date">11-04</span><span class="update-title">牯岭街少年杀人事件</span><span class="update-summary">4K修复版预告片上线，正片11月15日入库</span></div>
+          <div class="update-item"><span class="update-date">11-03</span><span class="update-title">破·地狱</span><span class="update-summary">加长版入库，新增12分钟未曝光片段</span></div>
+        </div>
+      </section>
+
+      <!-- 4. 分类入口 -->
+      <section class="section" id="categories">
+        <div class="section-header">
+          <h2>按类型浏览</h2>
+          <span class="section-sub">八类主要资源索引</span>
+        </div>
+        <div class="category-grid">
+          <a href="/#featured" class="category-item">华语电影</a>
+          <a href="/#featured" class="category-item">欧美电影</a>
+          <a href="/#featured" class="category-item">日韩剧集</a>
+          <a href="/#featured" class="category-item">华语剧集</a>
+          <a href="/#featured" class="category-item">4K修复</a>
+          <a href="/#featured" class="category-item">蓝光原盘</a>
+          <a href="/#featured" class="category-item">流媒体首发</a>
+          <a href="/#featured" class="category-item">经典老片</a>
+        </div>
+      </section>
+
+      <!-- 5. 深度解析 -->
+      <section class="section" id="analysis">
+        <div class="section-header">
+          <h2>深度解析：版本选择与画质判断</h2>
+          <span class="section-sub">从片源规格到字幕层级的完整拆解</span>
+        </div>
+        <div class="deep-analysis">
+          <h3>4K修复版的“原生4K”与“插值4K”差异</h3>
+          <p>《日掛中天》4K修复版标注为“原生4K扫描”，源素材来自35mm原始底片，扫描分辨率达到4096×3112，后期调色由导演蔡尚君与调色师张亘在泰国完成。对比11月8日同步入库的另一版本标注为“2K DI插值”，源素材是2K数字中间片，通过算法放大到3840×2160。两个版本的文件大小差了近3倍：原生版72GB，插值版26GB。判断依据在于画面细节——原生版在暗部保留了胶片颗粒的随机形态，插值版则出现明显的块状平滑。码率数据上，原生版平均码率98Mbps，插值版42Mbps。</p>
+          <p>这并非孤例。2026年10月入库的《破·地狱》加长版也面临同样问题：加长12分钟的片段来自不同拍摄期，部分镜头只有2K素材，导致全片在4K版本中画质不统一。加长片段在夜戏场景中噪点明显高于正片，这是修复团队未对新增片段做统一降噪的结果。</p>
+
+          <h3>字幕来源与翻译质量的三层分级</h3>
+          <p>字幕质量通常分为三层：官方字幕、压制组精校字幕、机翻/ OCR字幕。官方字幕指流媒体平台或蓝光碟自带的字幕，如Netflix为《回魂计》提供的简中字幕经过专业翻译公司处理，术语一致性有保障。压制组精校字幕通常由影迷组织制作，如“远鉴字幕组”为《殺人者的購物中心》制作的字幕，在动作场景的音效注释上有额外标注，但更新时间晚于官方版本2到3天。机翻字幕问题最明显——《好或壞的東載》第7集法庭戏中，“異議あり”被机翻成“有异议”，而官方字幕译为“反对”，后者更符合中文法庭语境。</p>
+          <ul>
+            <li>官方字幕：错误率低于0.5%，但可能缺少注释</li>
+            <li>精校字幕：错误率1%—2%，含注释和背景说明，时效性差</li>
+            <li>机翻/OCR：错误率5%—15%，人名地名不一致，不建议用于剧情复杂影片</li>
+          </ul>
+
+          <h3>音轨选择：原声、配音与评论音轨</h3>
+          <p>《悲情城市》4K修复版提供了三条音轨：原始 mono 音轨、5.1 重混音轨、以及侯孝贤与剪辑师廖庆松的评论音轨。5.1 重混在九份山城的雨声场景中增加了环绕声道，但部分影迷认为 mono 原轨更接近1989年影院放映的听觉记忆。评论音轨中侯孝贤提到，梁朝伟饰演的文清在狱中写字那场戏，原本拍了更长的镜头，最终剪掉的原因是“沉默比台词更有重量”。这类信息只在评论音轨中出现，正片和花絮都没有收录。</p>
+          <p>值得留意的是，11月6日入库的《小丑2》蓝光版包含杜比全景声音轨，但部分播放器在解码时需要手动切换——默认输出为DD+ 5.1，需在设置中开启“位元流输出”才能点亮Atmos。这个问题在多个论坛被提及，华金·菲尼克斯在楼梯上跳舞那场戏的雨声定位在Atmos版本中明显更精确。</p>
+        </div>
+      </section>
+
+      <!-- 6. 体验指南 -->
+      <section class="section" id="guide">
+        <div class="section-header">
+          <h2>观影选择指南</h2>
+          <span class="section-sub">按优先级排列的判断路径</span>
+        </div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <h4>先定画质规格，再看文件大小</h4>
+              <p>4K HDR 版本优先于 1080p，但需注意播放设备是否支持 HDR10 或杜比视界。若显示器亮度低于 600 尼特，HDR 效果会大打折扣，此时 1080p 高码率版本反而更实用。</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <h4>确认字幕来源，避开 OCR 版本</h4>
+              <p>官方字幕优先。若只有压制组字幕，检查文件名是否标注“精校”或“OCR”。OCR 字幕通常在片名下方带有“本字幕由XX录制”字样，错误率偏高，剧情复杂的影片不建议使用。</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <h4>剧集先查更新状态，再决定是否开追</h4>
+              <p>韩剧《殺人者的購物中心》每周三、四更新，全8集预计11月27日完结。若不想等待，可先看已完结的《好或壞的東載》全8集。完结剧集不用担心断更风险。</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">4</span>
+            <div class="step-content">
+              <h4>经典老片优先选修复版，而非老版</h4>
+              <p>《悲情城市》4K修复版在色彩还原上明显优于2015年发行的蓝光版，后者偏绿严重。修复版由博洛尼亚实验室完成，侯孝贤亲自参与了调色确认。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="section" id="faq">
+        <div class="section-header">
+          <h2>常见问题</h2>
+          <span class="section-sub">关于版本、字幕与更新</span>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>《日掛中天》4K修复版的画面比例为什么和影院版不同？</summary>
+            <div class="faq-answer">影院版是2.39:1宽银幕比例，4K修复版调整为1.85:1。导演蔡尚君在修复花絮中解释，1.85:1更接近他拍摄时监视器里看到的构图，宽银幕版本是发行方为增加排片场次做的妥协。修复版上下各多出约12%的画面信息。</div>
+          </details>
+          <details class="faq-item">
+            <summary>《回魂计》三条时间线分别对应哪几集？</summary>
+            <div class="faq-answer">第1—3集是2019年时间线，第4—6集是2023年，第7—9集回到2015年。三条线在最终集汇合，第6集的反转揭示2019年事件的真实起因。建议按播出顺序观看，不要跳集。</div>
+          </details>
+          <details class="faq-item">
+            <summary>《小丑2》蓝光版和流媒体版有哪些内容差异？</summary>
+            <div class="faq-answer">蓝光版多出40分钟花絮，包括Lady Gaga在录音棚即兴演唱《Close to You》的完整片段、华金·菲尼克斯为法庭戏排练的13分钟未剪辑素材。正片内容两者一致，流媒体版没有花絮。</div>
+          </details>
+          <details class="faq-item">
+            <summary>《悲情城市》4K修复版哪个音轨更值得听？</summary>
+            <div class="faq-answer">如果想还原1989年影院体验，选原始mono音轨；如果追求现代环绕效果，选5.1重混。评论音轨值得单独听一遍，侯孝贤在片中提到了很多拍摄决策的细节，比如九份场景的雾是用烟饼制造的。</div>
+          </details>
+          <details class="faq-item">
+            <summary>《殺人者的購物中心》第5集长镜头是实拍还是剪辑合成？</summary>
+            <div class="faq-answer">动作指导在幕后花絮中确认是实拍，但不是一镜到底——由27个镜头通过隐藏剪辑点拼接而成。最长的一段连续拍摄是1分42秒，李栋旭从仓库二层跳下后连续击倒5人的段落。</div>
+          </details>
+          <details class="faq-item">
+            <summary>《驯鹿宝贝》第3集独角戏为什么被单独讨论？</summary>
+            <div class="faq-answer">那场戏在单一酒吧场景内完成，理查德·加德对着镜头独白12分钟，没有剪辑切换。导演在采访中提到拍了7条，最终选用第5条，因为加德在第5条中有一处几乎忘词的停顿，被保留在正片中，增加了真实感。</div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 8. 用户评论 -->
+      <section class="section" id="comments">
+        <div class="section-header">
+          <h2>用户评论</h2>
+          <span class="section-sub">来自观众的真实反馈</span>
+        </div>
+        <div class="comment-grid">
+          <div class="comment-card"><div class="comment-user">胶片虫子 <span class="badge">影迷</span></div>《日掛中天》4K版那个长镜头，辛芷蕾在雨里走了整整7分钟，原生4K下能看到雨丝打在脸上的轨迹，插值版完全糊成一团。</div>
+          <div class="comment-card"><div class="comment-user">阿菲的猫</div>回魂计第6集反转之后我回头重看前5集，发现第2集就有伏笔，舒淇在厨房切菜那场戏刀的位置和后面呼应。编剧确实埋了线。</div>
+          <div class="comment-card"><div class="comment-user">老张看片</div>小丑2蓝光花絮值回票价，Gaga那段即兴演唱比正片里修过的版本好听太多了。正片反而有点收着。</div>
+          <div class="comment-card"><div class="comment-user">泡菜拌饭</div>殺人者的購物中心第5集那个仓库打斗，李栋旭从二楼跳下来的时候明显没吊威亚，落地声音是实收录的。动作戏至少没糊弄。</div>
+          <div class="comment-card"><div class="comment-user">九份下雨</div>悲情城市修复版色调终于对了，之前蓝光版整个偏绿，陈松勇在牢里见梁朝伟那场戏脸色都是绿的。现在正常了。</div>
+          <div class="comment-card"><div class="comment-user">日剧迷小李</div>好或壞的東載第7集法庭戏台词多得离谱，字幕组翻了两天。机翻版把“異議あり”翻成“有异议”，当场出戏。</div>
+          <div class="comment-card"><div class="comment-user">Netflix蹲守者</div>驯鹿宝贝第3集那个12分钟长镜头，看到中间我差点以为播放器卡了。加德停顿那一下太真了，后来知道是忘词被剪进去的，反而更喜欢。</div>
+          <div class="comment-card"><div class="comment-user">小津安二不郎</div>牯岭街4K修复版预告片画质不错，但11月15日才入库，等得着急。</div>
+          <div class="comment-card"><div class="comment-user">爆米花桶</div>破·地狱加长版新增的12分钟有一段夜戏噪点特别明显，和正片画质不统一。修复团队应该统一降噪再发。</div>
+          <div class="comment-card"><div class="comment-user">随便看看</div>小丑2的杜比全景声要手动设置才能点亮，折腾了半天。楼梯跳舞那场雨声确实比DD+好很多。</div>
+          <div class="comment-card"><div class="comment-user">默视录观众</div>默视录全片监控视角，看到一半开始怀疑自己也在被拍。李康生演得挺好的，就是镜头太晃了有点晕。</div>
+          <div class="comment-card"><div class="comment-user">字幕组退休</div>精校字幕现在越来越少了，大部分组都在赶速度。远鉴那个殺人者的購物中心字幕等了3天，但质量确实好，连音效都有注释。</div>
+          <div class="comment-card"><div class="comment-user">小镇青年</div>回魂计贾静雯戏份比预想少，但每场都压得住。舒淇和李心洁对戏那几场张力很足。</div>
+          <div class="comment-card"><div class="comment-user">4K收藏家</div>悲情城市评论音轨里侯孝贤说雾是烟饼做的，这个细节以前完全没听过。修复版收录了，值得单独听一遍。</div>
+          <div class="comment-card"><div class="comment-user">看剧不追更</div>好或壞的東載全8集一周刷完，町田启太黑化得有点快，第6集突然就变了一个人，铺垫略少。</div>
+          <div class="comment-card"><div class="comment-user">雨天看片</div>日掛中天插值版和原生版我都下了，对比着看差距太明显了。原生版72G不亏，暗部细节完全两个级别。</div>
+        </div>
+      </section>
+
+      <!-- 9. 相关资讯 -->
+      <section class="section" id="news">
+        <div class="section-header">
+          <h2>相关资讯</h2>
+          <span class="section-sub">11月影视动态</span>
+        </div>
+        <div class="news-list">
+          <div class="news-item">
+            <span class="news-date">2026-11-08</span>
+            <div class="news-body">
+              <div class="news-title">《日掛中天》4K修复版入库，画面比例调整为1.85:1</div>
+              <div class="news-summary">蔡尚君在修复花絮中确认，1.85:1更接近拍摄时的监视器构图，上下各多出12%画面。粤语原声DTS-HD MA 5.1音轨同步收录。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-07</span>
+            <div class="news-body">
+              <div class="news-title">《回魂计》全9集上线Netflix，舒淇李心洁双女主复仇剧</div>
+              <div class="news-summary">三条时间线分别对应2015、2019、2023年，最终集汇合。第6集反转后前5集细节全部重新成立，编剧埋线跨越6集。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-06</span>
+            <div class="news-body">
+              <div class="news-title">《小丑2》蓝光版收录40分钟幕后花絮，Gaga即兴演唱片段曝光</div>
+              <div class="news-summary">花絮包括录音棚即兴演唱《Close to You》完整版、华金·菲尼克斯法庭戏13分钟排练素材。杜比全景声音轨需手动设置点亮。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-05</span>
+            <div class="news-body">
+              <div class="news-title">《悲情城市》4K修复版入库，博洛尼亚实验室完成调色</div>
+              <div class="news-summary">侯孝贤亲自参与调色确认，修复版纠正了2015年蓝光版偏绿的问题。评论音轨收录侯孝贤与廖庆松的完整对谈。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-04</span>
+            <div class="news-body">
+              <div class="news-title">《牯岭街少年杀人事件》4K修复预告片上线，11月15日正片入库</div>
+              <div class="news-summary">修复版由同一实验室完成，预告片展示了小公园帮场景的修复前后对比，画面颗粒保留完整，预计正片时长237分钟。</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <span class="news-date">2026-11-03</span>
+            <div class="news-body">
+              <div class="news-title">《破·地狱》加长版入库，新增12分钟未曝光片段</div>
+              <div class="news-summary">新增片段来自不同拍摄期，部分镜头仅有2K素材，导致4K版本中画质不统一。夜戏场景噪点明显高于正片。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. 相关推荐 -->
+      <section class="section" id="recommend">
+        <div class="section-header">
+          <h2>相关推荐</h2>
+          <span class="section-sub">具体条目与方向索引</span>
+        </div>
+        <div class="recommend-tags">
+          <a href="/#featured" class="recommend-tag">辛芷蕾作品合集</a>
+          <a href="/#featured" class="recommend-tag">蔡尚君导演专题</a>
+          <a href="/#featured" class="recommend-tag">Netflix华语悬疑剧</a>
+          <a href="/#featured" class="recommend-tag">4K修复华语经典</a>
+          <a href="/#featured" class="recommend-tag">李栋旭动作片</a>
+          <a href="/#featured" class="recommend-tag">侯孝贤电影修复版</a>
+          <a href="/#featured" class="recommend-tag">蓝光花絮收录清单</a>
+          <a href="/#featured" class="recommend-tag">日剧法庭题材</a>
+        </div>
+      </section>
+
+      <!-- 11. 补充板块：热门榜单 -->
+      <section class="section" id="rank">
+        <div class="section-header">
+          <h2>本周热门榜单</h2>
+          <span class="section-sub">按站内热度排序 · 11月8日更新</span>
+        </div>
+        <div class="rank-list">
+          <div class="rank-item"><span class="rank-num top3">1</span><span class="rank-title">回魂计</span><span class="rank-score">热度 12,305</span></div>
+          <div class="rank-item"><span class="rank-num top3">2</span><span class="rank-title">日掛中天 4K修复版</span><span class="rank-score">热度 9,842</span></div>
+          <div class="rank-item"><span class="rank-num top3">3</span><span class="rank-title">小丑2：双重妄想 蓝光</span><span class="rank-score">热度 8,971</span></div>
+          <div class="rank-item"><span class="rank-num">4</span><span class="rank-title">殺人者的購物中心</span><span class="rank-score">热度 7,650</span></div>
+          <div class="rank-item"><span class="rank-num">5</span><span class="rank-title">驯鹿宝贝</span><span class="rank-score">热度 6,210</span></div>
+          <div class="rank-item"><span class="rank-num">6</span><span class="rank-title">悲情城市 4K修复版</span><span class="rank-score">热度 5,420</span></div>
+          <div class="rank-item"><span class="rank-num">7</span><span class="rank-title">好或壞的東載</span><span class="rank-score">热度 4,880</span></div>
+          <div class="rank-item"><span class="rank-num">8</span><span class="rank-title">默视录</span><span class="rank-score">热度 3,940</span></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右辅助栏 -->
+    <aside class="aux-sidebar" aria-label="辅助信息">
+      <div class="aux-card">
+        <h3>热门条目</h3>
+        <ul class="hot-list">
+          <li><a href="/#featured"><span class="hot-index">01</span><span class="hot-title">日掛中天</span><span class="hot-badge">新</span></a></li>
+          <li><a href="/#featured"><span class="hot-index">02</span><span class="hot-title">回魂计</span></a></li>
+          <li><a href="/#featured"><span class="hot-index">03</span><span class="hot-title">小丑2：双重妄想</span></a></li>
+          <li><a href="/#featured"><span class="hot-index">04</span><span class="hot-title">殺人者的購物中心</span></a></li>
+          <li><a href="/#featured"><span class="hot-index">05</span><span class="hot-title">悲情城市</span></a></li>
+        </ul>
+      </div>
+      <div class="aux-card">
+        <h3>今日更新摘要</h3>
+        <div class="quick-update">
+          <div class="qu-item"><span class="qu-date">11-08</span> 日掛中天 4K修复版</div>
+          <div class="qu-item"><span class="qu-date">11-08</span> 殺人者的購物中心 第6集</div>
+          <div class="qu-item"><span class="qu-date">11-07</span> 回魂计 全9集</div>
+          <div class="qu-item"><span class="qu-date">11-06</span> 悲情城市 4K修复版</div>
+        </div>
+      </div>
+      <div class="aux-card">
+        <h3>投稿与交流</h3>
+        <div style="font-size:0.84rem;color:var(--text-secondary);line-height:1.7;">
+          <p style="margin-bottom:0.5rem;">投稿通道：分享你发现的修复版消息、字幕对比或版本差异。</p>
+          <a href="/#comments" class="recommend-tag" style="display:inline-block;margin-bottom:0.4rem;">发布影评</a>
+          <a href="/#comments" class="recommend-tag" style="display:inline-block;">参与讨论</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">www.cgbdy17.com</div>
+          <p>影视资源聚合与导航。覆盖2026年10月至11月的院线新片、流媒体首播、蓝光发布与经典修复版，每日更新条目、字幕版本与画质规格。内容类型包含电影、剧集、纪录片与修复老片。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>频道</h4>
+            <a href="/#overview">领域概览</a>
+            <a href="/#featured">精选推荐</a>
+            <a href="/#updates">最新更新</a>
+            <a href="/#categories">分类入口</a>
+          </div>
+          <div class="footer-col">
+            <h4>内容</h4>
+            <a href="/#analysis">深度解析</a>
+            <a href="/#guide">体验指南</a>
+            <a href="/#faq">常见问题</a>
+            <a href="/#comments">用户评论</a>
+          </div>
+          <div class="footer-col">
+            <h4>互动</h4>
+            <a href="/#comments">投稿影评</a>
+            <a href="/#comments">交流讨论</a>
+            <a href="/#rank">热门榜单</a>
+            <a href="/#news">相关资讯</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 www.cgbdy17.com · 内容聚合示例 · 数据截至2026年11月8日</span>
+        <span>站内条目为示例数据，不构成资源提供或下载服务</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="back-to-top" aria-label="回到顶部">↑</button>
+
+  <!-- 内联脚本 -->
+  <script>
+    (function() {
+      // 移动端菜单
+      const hamburger = document.getElementById('hamburger-btn');
+      const mainNav = document.querySelector('.main-nav');
+      const overlay = document.getElementById('menu-overlay');
+      let menuOpen = false;
+
+      function toggleMenu(open) {
+        menuOpen = open;
+        if (open) {
+          mainNav.style.display = 'flex';
+          mainNav.style.flexDirection = 'column';
+          mainNav.style.position = 'fixed';
+          mainNav.style.top = 'calc(var(--announce-height) + var(--header-height))';
+          mainNav.style.left = '0';
+          mainNav.style.right = '0';
+          mainNav.style.background = 'var(--surface)';
+          mainNav.style.padding = '1rem';
+          mainNav.style.zIndex = '99';
+          mainNav.style.boxShadow = 'var(--shadow-hover)';
+          mainNav.style.gap = '0.3rem';
+          mainNav.style.maxHeight = 'calc(100vh - var(--sticky-offset))';
+          mainNav.style.overflowY = 'auto';
+          overlay.classList.add('active');
+          hamburger.setAttribute('aria-expanded', 'true');
+        } else {
+          mainNav.style.display = '';
+          mainNav.style.flexDirection = '';
+          mainNav.style.position = '';
+          mainNav.style.top = '';
+          mainNav.style.left = '';
+          mainNav.style.right = '';
+          mainNav.style.background = '';
+          mainNav.style.padding = '';
+          mainNav.style.zIndex = '';
+          mainNav.style.boxShadow = '';
+          mainNav.style.gap = '';
+          mainNav.style.maxHeight = '';
+          mainNav.style.overflowY = '';
+          overlay.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      }
+
+      hamburger.addEventListener('click', function() {
+        toggleMenu(!menuOpen);
+      });
+
+      overlay.addEventListener('click', function() {
+        if (menuOpen) toggleMenu(false);
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menuOpen) {
+          toggleMenu(false);
+        }
+      });
+
+      // 点击导航项后收起菜单
+      mainNav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (menuOpen) toggleMenu(false);
+        });
+      });
+
+      // 搜索功能
+      const searchInput = document.getElementById('search-input');
+      const searchBtn = document.getElementById('search-btn');
+      const sections = document.querySelectorAll('.section');
+      const allCards = document.querySelectorAll('.card');
+      const allUpdates = document.querySelectorAll('.update-item');
+      const allNews = document.querySelectorAll('.news-item');
+      const allComments = document.querySelectorAll('.comment-card');
+
+      function performSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) {
+          // 清空搜索，恢复所有内容
+          sections.forEach(s => s.style.display = '');
+          allCards.forEach(c => c.style.display = '');
+          allUpdates.forEach(u => u.style.display = '');
+          allNews.forEach(n => n.style.display = '');
+          allComments.forEach(c => c.style.display = '');
+          return;
+        }
+
+        let found = false;
+
+        // 简单搜索：检查各板块文本内容
+        sections.forEach(function(section) {
+          const text = section.textContent.toLowerCase();
+          const matches = text.includes(query);
+          section.style.display = matches ? '' : 'none';
+          if (matches) found = true;
+        });
+
+        // 如果整个板块被隐藏，不再处理内部元素
+        sections.forEach(function(section) {
+          if (section.style.display === 'none') return;
+          // 对于卡片、更新、资讯、评论，进一步过滤
+          section.querySelectorAll('.card').forEach(function(card) {
+            card.style.display = card.textContent.toLowerCase().includes(query) ? '' : 'none';
+          });
+          section.querySelectorAll('.update-item').forEach(function(item) {
+            item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
+          });
+          section.querySelectorAll('.news-item').forEach(function(item) {
+            item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
+          });
+          section.querySelectorAll('.comment-card').forEach(function(item) {
+            item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
+          });
+        });
+
+        // 无结果反馈
+        let noResultEl = document.getElementById('search-no-result');
+        if (!found) {
+          if (!noResultEl) {
+            noResultEl = document.createElement('div');
+            noResultEl.id = 'search-no-result';
+            noResultEl.style.cssText = 'text-align:center;padding:2rem;color:var(--text-tertiary);font-size:0.95rem;background:var(--surface);border-radius:var(--radius-card);margin-bottom:2rem;';
+            document.querySelector('.main-content').prepend(noResultEl);
+          }
+          noResultEl.textContent = '没有找到与“' + searchInput.value.trim() + '”相关的内容，试试其他关键词。';
+          noResultEl.style.display = '';
+        } else if (noResultEl) {
+          noResultEl.style.display = 'none';
+        }
+      }
+
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          performSearch();
+        }
+      });
+
+      // 回到顶部
+      const backToTop = document.getElementById('back-to-top');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > window.innerHeight) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // 侧栏高亮当前板块
+      const channelLinks = document.querySelectorAll('.channel-list a');
+      const sectionEls = document.querySelectorAll('.section[id]');
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            channelLinks.forEach(function(link) {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '/#' + entry.target.id) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px' });
+
+      sectionEls.forEach(function(section) {
+        observer.observe(section);
+      });
+    })();
+  </script>
+
+  <!-- 结构化数据 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "www.cgbdy17.com",
+    "description": "影视资源聚合与导航，覆盖华语电影、欧美剧集、日韩资源与4K修复专区，提供最新更新、深度解析、分类索引与用户评论。",
+    "url": "https://www.cgbdy17.com/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "《日掛中天》4K修复版的画面比例为什么和影院版不同？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "影院版是2.39:1宽银幕比例，4K修复版调整为1.85:1。导演蔡尚君在修复花絮中解释，1.85:1更接近他拍摄时监视器里看到的构图，宽银幕版本是发行方为增加排片场次做的妥协。修复版上下各多出约12%的画面信息。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "《回魂计》三条时间线分别对应哪几集？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "第1—3集是2019年时间线，第4—6集是2023年，第7—9集回到2015年。三条线在最终集汇合，第6集的反转揭示2019年事件的真实起因。建议按播出顺序观看，不要跳集。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "《小丑2》蓝光版和流媒体版有哪些内容差异？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "蓝光版多出40分钟花絮，包括Lady Gaga在录音棚即兴演唱《Close to You》的完整片段、华金·菲尼克斯为法庭戏排练的13分钟未剪辑素材。正片内容两者一致，流媒体版没有花絮。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "《悲情城市》4K修复版哪个音轨更值得听？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "如果想还原1989年影院体验，选原始mono音轨；如果追求现代环绕效果，选5.1重混。评论音轨值得单独听一遍，侯孝贤在片中提到了很多拍摄决策的细节，比如九份场景的雾是用烟饼制造的。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "《殺人者的購物中心》第5集长镜头是实拍还是剪辑合成？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "动作指导在幕后花絮中确认是实拍，但不是一镜到底——由27个镜头通过隐藏剪辑点拼接而成。最长的一段连续拍摄是1分42秒，李栋旭从仓库二层跳下后连续击倒5人的段落。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "《驯鹿宝贝》第3集独角戏为什么被单独讨论？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "那场戏在单一酒吧场景内完成，理查德·加德对着镜头独白12分钟，没有剪辑切换。导演在采访中提到拍了7条，最终选用第5条，因为加德在第5条中有一处几乎忘词的停顿，被保留在正片中，增加了真实感。"
+        }
+      }
+    ]
+  }
+  </script>
+
+</body>
+    </html>
