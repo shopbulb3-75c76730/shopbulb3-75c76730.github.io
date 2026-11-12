@@ -1,0 +1,1199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中同论坛 - 社区内容聚合与讨论</title>
+<meta name="description" content="中同论坛聚合社区讨论、经验分享与圈内动态，提供话题精选、分类索引、深度解析、用户评论与更新资讯，适合关注社群交流与内容沉淀的访问者浏览。">
+<meta name="keywords" content="中同论坛">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f3a45'/%3E%3Cpath d='M16 44V20h8l8 12 8-12h8v24h-7V31l-7 10h-4l-7-10v13z' fill='%23f2c14e'/%3E%3C/svg%3E">
+<style>
+:root{
+  --primary:#0f3a45;
+  --primary-soft:#1d5a68;
+  --primary-pale:#e3f0f2;
+  --accent:#f2c14e;
+  --accent-soft:#fbe9b8;
+  --bg:#f6f4ef;
+  --panel:#ffffff;
+  --text:#1c2a2e;
+  --text-2:#4a5c61;
+  --text-3:#7d8f94;
+  --line:#dfe5e3;
+  --radius-card:14px;
+  --radius-btn:8px;
+  --radius-tag:6px;
+  --shadow:0 2px 10px rgba(15,58,69,.07);
+  --shadow-hover:0 8px 24px rgba(15,58,69,.14);
+  --wrap:1340px;
+  --gap:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:112px}
+body{
+  margin:0;
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--primary-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+img{max-width:100%;display:block}
+button{font-family:inherit}
+
+/* ---------- 吸顶公告条 ---------- */
+.announce{
+  position:sticky;top:0;z-index:60;
+  background:var(--primary);
+  color:#f4f7f6;
+  font-size:13px;
+}
+.announce-inner{
+  max-width:var(--wrap);margin:0 auto;padding:8px 20px;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.announce-brand{font-weight:700;color:var(--accent);letter-spacing:.5px;white-space:nowrap}
+.announce-list{display:flex;gap:20px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.announce-list li{display:flex;gap:8px;align-items:baseline;white-space:nowrap}
+.announce-list time{color:var(--accent-soft);font-variant-numeric:tabular-nums;font-size:12px}
+.announce-more{margin-left:auto;color:#cfe3e6;font-size:12px;white-space:nowrap}
+
+/* ---------- 吸顶页头 ---------- */
+.site-head{
+  position:sticky;top:36px;z-index:55;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.head-inner{
+  max-width:var(--wrap);margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;gap:22px;
+}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand svg{width:38px;height:38px}
+.brand-text{font-size:20px;font-weight:800;color:var(--primary);letter-spacing:1px;white-space:nowrap}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:0}
+.main-nav a{
+  padding:6px 11px;border-radius:var(--radius-tag);
+  font-size:14px;color:var(--text-2);white-space:nowrap;
+}
+.main-nav a:hover,.main-nav a.active{background:var(--primary-pale);color:var(--primary);text-decoration:none}
+.head-actions{display:flex;gap:10px;align-items:center;flex-shrink:0}
+.search-box{display:flex;align-items:center;border:1px solid var(--line);border-radius:var(--radius-btn);overflow:hidden;background:#fff}
+.search-box input{
+  border:0;padding:7px 10px;font-size:13px;width:140px;outline:none;background:transparent;color:var(--text);
+}
+.search-box button{
+  border:0;background:var(--primary);color:#fff;padding:7px 12px;font-size:13px;cursor:pointer;
+}
+.search-box button:hover{background:var(--primary-soft)}
+.btn-primary{
+  display:inline-block;background:var(--accent);color:#3a2a00;font-weight:700;
+  padding:8px 16px;border-radius:var(--radius-btn);font-size:14px;border:0;cursor:pointer;
+}
+.btn-primary:hover{background:#e8b53a;text-decoration:none}
+.hamburger{display:none;background:none;border:1px solid var(--line);border-radius:var(--radius-btn);padding:6px 10px;font-size:18px;cursor:pointer;color:var(--primary)}
+.hamburger:focus-visible,.main-nav a:focus-visible,.search-box button:focus-visible,.btn-primary:focus-visible{
+  outline:2px solid var(--primary-soft);outline-offset:2px;
+}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(900px 320px at 82% -10%, rgba(242,193,78,.32), transparent 60%),
+    linear-gradient(135deg,#0f3a45 0%, #164e5b 58%, #1d5a68 100%);
+  color:#eef5f5;
+}
+.hero-inner{
+  max-width:var(--wrap);margin:0 auto;padding:46px 20px 54px;
+  display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;
+}
+.hero h1{font-size:clamp(30px,4vw,46px);letter-spacing:2px;color:#fff;margin-bottom:16px}
+.hero-lead{font-size:15px;color:#d5e5e7;max-width:640px;margin-bottom:24px}
+.hero-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.hero-tags span{
+  border:1px solid rgba(255,255,255,.28);border-radius:999px;
+  padding:4px 13px;font-size:13px;color:#e7f0f1;
+}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero-cta .ghost{
+  display:inline-block;border:1px solid rgba(255,255,255,.4);color:#eef5f5;
+  padding:8px 16px;border-radius:var(--radius-btn);font-size:14px;
+}
+.hero-cta .ghost:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.hero-stats{display:flex;gap:26px;margin-top:28px;flex-wrap:wrap}
+.hero-stats div{font-size:12px;color:#b9d2d6}
+.hero-stats strong{display:block;font-size:20px;color:var(--accent);font-variant-numeric:tabular-nums}
+.hero-visual{position:relative;height:280px}
+.hero-visual svg{width:100%;height:100%}
+.hero-visual .pulse{animation:pulse 4s ease-in-out infinite;transform-origin:center}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* ---------- 主布局：三栏门户 ---------- */
+.layout{
+  max-width:var(--wrap);margin:0 auto;padding:30px 20px 10px;
+  display:grid;grid-template-columns:178px minmax(0,1fr) 250px;gap:var(--gap);
+  align-items:start;
+}
+.col-left{position:sticky;top:112px;max-height:calc(100vh - 130px);overflow:auto}
+.col-right{position:sticky;top:112px;max-height:calc(100vh - 130px);overflow:auto}
+.side-box{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);
+  padding:14px 14px 10px;box-shadow:var(--shadow);margin-bottom:18px;
+}
+.side-title{font-size:13px;font-weight:700;color:var(--text-3);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase}
+.channel-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.channel-nav a{
+  display:flex;justify-content:space-between;align-items:center;gap:6px;
+  font-size:14px;color:var(--text-2);padding:7px 9px;border-radius:var(--radius-tag);
+}
+.channel-nav a:hover,.channel-nav a.current{background:var(--primary-pale);color:var(--primary);text-decoration:none}
+.channel-nav .count{font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.hot-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.hot-list li{display:flex;gap:8px;font-size:13px;color:var(--text-2);line-height:1.5}
+.hot-list .num{
+  flex-shrink:0;width:18px;height:18px;border-radius:4px;background:var(--primary-pale);
+  color:var(--primary);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  margin-top:2px;
+}
+.hot-list li:nth-child(-n+3) .num{background:var(--accent);color:#3a2a00}
+.update-flow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.update-flow li{font-size:13px;color:var(--text-2);line-height:1.5;border-bottom:1px dashed var(--line);padding-bottom:9px}
+.update-flow li:last-child{border-bottom:0;padding-bottom:0}
+.update-flow time{display:block;font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums}
+
+/* ---------- 正文板块 ---------- */
+.content{min-width:0}
+.section{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);
+  padding:24px 26px;box-shadow:var(--shadow);margin-bottom:var(--gap);
+}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.section-head h2{font-size:20px;color:var(--primary);letter-spacing:.5px}
+.section-head .sub{font-size:12px;color:var(--text-3)}
+.section-head .more{font-size:13px;color:var(--primary-soft)}
+.prose p{color:var(--text-2);font-size:14.5px}
+.prose strong{color:var(--text)}
+.lead-note{
+  font-size:13px;color:var(--text-3);border-left:3px solid var(--accent);
+  padding:2px 0 2px 12px;margin-bottom:14px;
+}
+
+/* 精选卡片网格 */
+.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;background:#fff;
+  display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;
+}
+.card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.card-body{padding:12px 13px 14px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card-body h3{font-size:15px;color:var(--text);line-height:1.45}
+.card-body h3 a{color:inherit}
+.card-body h3 a:hover{color:var(--primary);text-decoration:none}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.tag{
+  font-size:11px;padding:2px 8px;border-radius:var(--radius-tag);
+  background:var(--primary-pale);color:var(--primary-soft);white-space:nowrap;
+}
+.tag.accent{background:var(--accent-soft);color:#7a5a00}
+.card-desc{font-size:12.5px;color:var(--text-2);line-height:1.6;flex:1}
+.card-meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-3);font-variant-numeric:tabular-nums}
+
+/* 动态列表 */
+.dyn-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.dyn-list li{
+  display:grid;grid-template-columns:92px 1fr;gap:14px;
+  padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.dyn-list li:last-child{border-bottom:0}
+.dyn-list time{font-size:12px;color:var(--text-3);font-variant-numeric:tabular-nums;padding-top:2px}
+.dyn-list .dyn-title{font-weight:600;color:var(--text);margin-right:8px}
+.dyn-list .dyn-sum{color:var(--text-2);font-size:13px}
+
+/* 分类入口 */
+.cat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cat-card{
+  border:1px solid var(--line);border-radius:var(--radius-card);padding:14px 14px 12px;
+  background:linear-gradient(180deg,#fff, #fbfcfb);transition:border-color .2s,box-shadow .2s;
+}
+.cat-card:hover{border-color:var(--primary-soft);box-shadow:var(--shadow)}
+.cat-card h3{font-size:15px;color:var(--primary);margin-bottom:5px}
+.cat-card p{font-size:12.5px;color:var(--text-3);margin:0;line-height:1.55}
+.cat-card .cat-count{font-size:11px;color:var(--text-3);margin-top:8px;display:block}
+
+/* 深度解析 */
+.deep h3{font-size:16px;color:var(--primary);margin:20px 0 8px;padding-left:11px;border-left:3px solid var(--accent)}
+.deep h3:first-of-type{margin-top:4px}
+.deep p{font-size:14.5px;color:var(--text-2)}
+.deep ul{font-size:14px;color:var(--text-2)}
+.deep li{margin-bottom:6px}
+.compare-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 16px}
+.compare-table th,.compare-table td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.compare-table th{background:var(--primary-pale);color:var(--primary);font-weight:700}
+.compare-table td{color:var(--text-2)}
+
+/* 指南步骤 */
+.steps{list-style:none;counter-reset:step;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.steps li{
+  counter-increment:step;display:grid;grid-template-columns:34px 1fr;gap:14px;
+  align-items:start;
+}
+.steps li::before{
+  content:counter(step);width:30px;height:30px;border-radius:50%;
+  background:var(--primary);color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.steps h4{font-size:15px;color:var(--text);margin-bottom:3px}
+.steps p{font-size:13.5px;color:var(--text-2);margin:0}
+
+/* FAQ */
+details.faq{
+  border:1px solid var(--line);border-radius:var(--radius-btn);margin-bottom:10px;
+  background:#fdfdfc;overflow:hidden;
+}
+details.faq summary{
+  cursor:pointer;list-style:none;padding:12px 14px;font-size:14.5px;font-weight:600;color:var(--text);
+  position:relative;padding-right:36px;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{
+  content:"+";position:absolute;right:14px;top:10px;font-size:18px;color:var(--primary-soft);font-weight:400;
+}
+details.faq[open] summary::after{content:"–"}
+details.faq .faq-body{padding:0 14px 14px;font-size:14px;color:var(--text-2)}
+
+/* 评论 */
+.comment-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.comment{
+  border:1px solid var(--line);border-radius:var(--radius-card);padding:12px 14px;background:#fdfdfc;
+  font-size:13.5px;color:var(--text-2);line-height:1.6;
+}
+.comment .who{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.comment .who strong{font-size:13px;color:var(--primary)}
+.comment .who time{font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.comment .weak{color:var(--text-3)}
+
+/* 资讯 */
+.news-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.news-list li{padding:12px 0;border-bottom:1px dashed var(--line)}
+.news-list li:last-child{border-bottom:0}
+.news-list h3{font-size:15px;color:var(--text);margin-bottom:4px}
+.news-list h3 a{color:inherit}
+.news-list h3 a:hover{color:var(--primary)}
+.news-list .meta{font-size:11.5px;color:var(--text-3);margin-bottom:3px;font-variant-numeric:tabular-nums}
+.news-list p{font-size:13.5px;color:var(--text-2);margin:0}
+
+/* 相关推荐标签 */
+.rec-tags{display:flex;flex-wrap:wrap;gap:9px}
+.rec-tags a{
+  display:inline-block;border:1px solid var(--line);border-radius:999px;
+  padding:6px 14px;font-size:13px;color:var(--text-2);background:#fff;
+}
+.rec-tags a:hover{border-color:var(--primary-soft);color:var(--primary);background:var(--primary-pale);text-decoration:none}
+
+/* 榜单 / 时间线 */
+.rank-list{list-style:none;margin:0;padding:0;counter-reset:rank}
+.rank-list li{
+  counter-increment:rank;display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center;
+  padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.rank-list li:last-child{border-bottom:0}
+.rank-list li::before{
+  content:counter(rank);width:22px;height:22px;border-radius:5px;background:var(--primary-pale);
+  color:var(--primary);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.rank-list li:nth-child(-n+3)::before{background:var(--accent);color:#3a2a00}
+.rank-list .rank-name{color:var(--text);font-weight:600}
+.rank-list .rank-score{font-size:12px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.timeline{list-style:none;margin:0;padding:0 0 0 16px;border-left:2px solid var(--primary-pale)}
+.timeline li{position:relative;padding:0 0 16px 16px}
+.timeline li::before{
+  content:"";position:absolute;left:-23px;top:6px;width:10px;height:10px;border-radius:50%;
+  background:var(--accent);border:2px solid #fff;
+}
+.timeline time{display:block;font-size:11.5px;color:var(--text-3);font-variant-numeric:tabular-nums;margin-bottom:2px}
+.timeline strong{font-size:14px;color:var(--text)}
+.timeline p{font-size:13px;color:var(--text-2);margin:2px 0 0}
+
+/* 投稿互动 */
+.submit-band{
+  background:linear-gradient(135deg,var(--primary) 0%, var(--primary-soft) 100%);
+  border-radius:var(--radius-card);padding:22px 26px;color:#eef5f5;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+  margin-bottom:var(--gap);
+}
+.submit-band h2{font-size:19px;color:#fff;margin-bottom:4px}
+.submit-band p{font-size:13.5px;color:#cfe3e6;margin:0}
+.submit-band .btn-primary{flex-shrink:0}
+
+/* 页脚 */
+.site-foot{background:#0c2f38;color:#b9d2d6;margin-top:20px}
+.foot-inner{max-width:var(--wrap);margin:0 auto;padding:40px 20px 24px}
+.foot-top{display:grid;grid-template-columns:1.3fr 2fr;gap:36px;margin-bottom:28px}
+.foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.foot-brand svg{width:34px;height:34px}
+.foot-brand strong{font-size:18px;color:#fff;letter-spacing:1px}
+.foot-desc{font-size:13px;line-height:1.75;color:#9fbcc1;max-width:340px}
+.foot-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.foot-cols h4{font-size:13px;color:var(--accent);margin-bottom:9px;letter-spacing:.5px}
+.foot-cols ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.foot-cols a{font-size:12.5px;color:#9fbcc1}
+.foot-cols a:hover{color:#fff;text-decoration:none}
+.foot-bottom{
+  border-top:1px solid rgba(255,255,255,.12);padding-top:16px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:12px;color:#7d9ea4;
+}
+.foot-bottom span{font-variant-numeric:tabular-nums}
+
+/* 回到顶部 */
+.to-top{
+  position:fixed;right:22px;bottom:26px;z-index:50;
+  width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;
+  background:var(--primary);color:#fff;font-size:18px;box-shadow:var(--shadow-hover);
+  opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s,transform .25s;
+}
+.to-top.show{opacity:1;visibility:visible}
+.to-top:hover{transform:translateY(-3px)}
+
+/* 搜索无结果 */
+.no-result{
+  display:none;padding:14px 16px;border:1px dashed var(--line);border-radius:var(--radius-btn);
+  background:#fffdf5;color:var(--text-2);font-size:14px;margin-bottom:16px;
+}
+.no-result.show{display:block}
+
+/* 遮罩 */
+.overlay{
+  display:none;position:fixed;inset:0;background:rgba(12,47,56,.45);z-index:54;
+}
+.overlay.show{display:block}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:1180px){
+  .layout{grid-template-columns:168px minmax(0,1fr) 226px;gap:16px}
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr) 250px}
+  .col-left{display:none}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{height:190px;order:-1}
+  .main-nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 20px;box-shadow:var(--shadow);flex-direction:column;z-index:56}
+  .main-nav.open{display:flex}
+  .hamburger{display:inline-block}
+  .site-head{position:sticky;top:36px}
+  .head-inner{position:relative;flex-wrap:wrap}
+  .search-box input{width:110px}
+  .comment-list{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr}
+}
+@media (max-width:740px){
+  html{scroll-padding-top:100px}
+  .layout{grid-template-columns:minmax(0,1fr);padding:20px 14px 10px}
+  .col-right{position:static;max-height:none;order:2}
+  .content{order:1}
+  .head-actions .btn-primary{display:none}
+  .search-box input{width:90px}
+  .announce-inner{gap:10px;padding:7px 14px}
+  .announce-list{gap:10px}
+  .announce-list li{font-size:12px}
+  .announce-more{display:none}
+  .hero-inner{padding:30px 14px 36px;gap:20px}
+  .section{padding:18px 16px}
+  .card-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dyn-list li{grid-template-columns:70px 1fr;gap:8px}
+  .foot-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .to-top{right:14px;bottom:18px;width:40px;height:40px}
+  .submit-band{padding:18px 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- 吸顶公告条 -->
+<div class="announce" id="announceBar">
+  <div class="announce-inner">
+    <span class="announce-brand">中同论坛</span>
+    <ul class="announce-list">
+      <li><time datetime="2026-11-08">11月8日</time><span>「同城徒步·香山环线」活动帖已开放报名</span></li>
+      <li><time datetime="2026-11-07">11月7日</time><span>新增 46 条「出柜沟通」经验分享</span></li>
+      <li><time datetime="2026-11-06">11月6日</time><span>「伴侣财产约定」专题讨论置顶</span></li>
+    </ul>
+    <a class="announce-more" href="#latest">全部更新 →</a>
+  </div>
+</div>
+
+<!-- 吸顶页头 -->
+<header class="site-head" id="siteHead">
+  <div class="head-inner">
+    <a class="brand" href="#top" aria-label="中同论坛首页">
+      <svg viewBox="0 0 64 64" role="img" aria-label="中同论坛标志">
+        <rect width="64" height="64" rx="14" fill="#0f3a45"/>
+        <path d="M16 44V20h8l8 12 8-12h8v24h-7V31l-7 10h-4l-7-10v13z" fill="#f2c14e"/>
+      </svg>
+      <span class="brand-text">中同论坛</span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="主题导航">
+      <a href="#overview" class="active">领域概览</a>
+      <a href="#featured">精选话题</a>
+      <a href="#latest">最新动态</a>
+      <a href="#categories">分类索引</a>
+      <a href="#deep">深度解析</a>
+      <a href="#guide">体验指南</a>
+      <a href="#faq">常见问答</a>
+      <a href="#comments">用户评论</a>
+      <a href="#news">相关资讯</a>
+      <a href="#rank">热门榜单</a>
+      <a href="#interact">投稿互动</a>
+    </nav>
+    <div class="head-actions">
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="搜索条目…" aria-label="搜索站内条目">
+        <button type="button" id="searchBtn">查找</button>
+      </div>
+      <a class="btn-primary" href="#interact">发布主题</a>
+      <button class="hamburger" id="hamburger" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mainNav">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- 首屏 -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <h1>中同论坛</h1>
+      <p class="hero-lead">
+        一个围绕社群生活、情感沟通与同城活动沉淀讨论的社区。这里汇集出柜经验、伴侣相处、健康常识、法律权益、线下活动与日常闲聊等具体话题，每条帖子都带着可追溯的时间与参与者。
+      </p>
+      <div class="hero-tags">
+        <span>出柜沟通</span>
+        <span>伴侣相处</span>
+        <span>同城活动</span>
+        <span>法律权益</span>
+        <span>心理健康</span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn-primary" href="#featured">浏览精选话题</a>
+        <a class="ghost" href="#latest">查看今日更新</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>1,284</strong>活跃主题</div>
+        <div><strong>46</strong>今日新帖</div>
+        <div><strong>9</strong>同城小组</div>
+        <div><strong>2026-11-08</strong>最近更新</div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 400 280" role="presentation">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f2c14e" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#f2c14e" stop-opacity=".15"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7fd1d8" stop-opacity=".75"/>
+            <stop offset="100%" stop-color="#7fd1d8" stop-opacity=".08"/>
+          </linearGradient>
+        </defs>
+        <circle cx="300" cy="70" r="58" fill="url(#g1)" class="pulse"/>
+        <circle cx="110" cy="190" r="72" fill="url(#g2)" class="pulse"/>
+        <rect x="150" y="60" width="130" height="170" rx="16" fill="#ffffff" opacity=".07"/>
+        <rect x="168" y="82" width="94" height="9" rx="4.5" fill="#f2c14e" opacity=".85"/>
+        <rect x="168" y="102" width="72" height="7" rx="3.5" fill="#cfe3e6" opacity=".6"/>
+        <rect x="168" y="120" width="84" height="7" rx="3.5" fill="#cfe3e6" opacity=".45"/>
+        <rect x="168" y="138" width="60" height="7" rx="3.5" fill="#cfe3e6" opacity=".45"/>
+        <rect x="168" y="162" width="34" height="14" rx="7" fill="#f2c14e" opacity=".55"/>
+        <rect x="208" y="162" width="34" height="14" rx="7" fill="#7fd1d8" opacity=".45"/>
+        <path d="M60 60 L90 48 L96 82 Z" fill="#f2c14e" opacity=".35"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 主布局 -->
+<div class="layout">
+  <!-- 左频道索引 -->
+  <aside class="col-left" aria-label="频道索引">
+    <div class="side-box">
+      <div class="side-title">频道索引</div>
+      <ul class="channel-nav">
+        <li><a href="#overview" class="current">领域概览<span class="count">01</span></a></li>
+        <li><a href="#featured">精选话题<span class="count">02</span></a></li>
+        <li><a href="#latest">最新更新<span class="count">03</span></a></li>
+        <li><a href="#categories">分类入口<span class="count">04</span></a></li>
+        <li><a href="#deep">深度解析<span class="count">05</span></a></li>
+        <li><a href="#guide">体验指南<span class="count">06</span></a></li>
+        <li><a href="#faq">常见问答<span class="count">07</span></a></li>
+        <li><a href="#comments">用户评论<span class="count">08</span></a></li>
+        <li><a href="#news">相关资讯<span class="count">09</span></a></li>
+        <li><a href="#rank">热门榜单<span class="count">10</span></a></li>
+        <li><a href="#interact">投稿互动<span class="count">11</span></a></li>
+      </ul>
+    </div>
+    <div class="side-box">
+      <div class="side-title">同城小组</div>
+      <ul class="channel-nav">
+        <li><a href="#categories">北京·朝阳小组</a></li>
+        <li><a href="#categories">上海·徐汇小组</a></li>
+        <li><a href="#categories">广州·天河小组</a></li>
+        <li><a href="#categories">成都·武侯小组</a></li>
+        <li><a href="#categories">杭州·西湖小组</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- 中主内容 -->
+  <main class="content" id="mainContent">
+
+    <!-- 1. 领域概览 -->
+    <section class="section" id="overview">
+      <div class="section-head">
+        <h2>社群讨论领域概览</h2>
+        <span class="sub">覆盖 12 个话题方向</span>
+      </div>
+      <div class="prose">
+        <p>社群讨论的常见方向大致落在五块：自我认同与出柜沟通、亲密关系与伴侣相处、健康常识与就医经验、法律权益与财产约定、同城活动与日常社交。每块下面又分出更细的条目，比如出柜沟通里区分「向父母出柜」「向同事出柜」「出柜后家庭关系修复」；伴侣相处里区分「异地维持」「共同财务」「分手处理」。</p>
+        <p>当前讨论密度较高的是三件事。<strong>2026 年 10 月下旬</strong>，一位用户发帖记录向母亲出柜的完整时间线，帖子在 11 月 2 日被顶到「出柜沟通」板块首位，跟帖 87 条，其中 31 条来自有相似经历的用户。<strong>11 月 4 日</strong>，有人整理了一份「伴侣共同购房署名方式」对照表，列出按份共有、共同共有、一方出资登记在另一方名下三种情形的风险点，被版主设为精华。<strong>11 月 6 日</strong>，同城徒步活动召集帖报名人数满 30 人，组织者在帖内更新了集合时间和路线图。</p>
+        <p>健康板块近期的讨论集中在体检项目选择和心理咨询资源。有人贴出北京三家公立医院心理科的挂号方式与候诊时长，也有用户分享线上咨询平台的使用体验，提到「首次咨询前填的量表有 47 题」。法律板块则围绕意定监护、遗嘱订立和伴侣财产协议展开，10 月 30 日一篇讲「意定监护公证需要哪些材料」的帖子被收藏 126 次。</p>
+        <p>同城活动以周末轻量户外和桌游局为主。9 个城市小组里，北京、上海、成都三个小组的周活动频次最高。日常闲聊板块内容较杂，从追剧到养猫都有，但版规要求标题写明具体对象，所以「最近看的剧」这类帖子会被提醒修改。</p>
+      </div>
+    </section>
+
+    <!-- 2. 精选内容推荐 -->
+    <section class="section" id="featured">
+      <div class="section-head">
+        <h2>本周精选主题帖</h2>
+        <span class="sub">按跟帖热度与内容完整度挑选</span>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <img src="https://picsum.photos/seed/comingout01/400/300" width="400" height="300" loading="lazy" alt="出柜沟通话题配图，桌面上的信件与笔记本">
+          <div class="card-body">
+            <h3><a href="#featured">向母亲出柜后的第 30 天：一次完整复盘</a></h3>
+            <div class="tag-row"><span class="tag">出柜沟通</span><span class="tag accent">精华</span><span class="tag">家庭关系</span></div>
+            <p class="card-desc">按时间线记录从摊牌到日常恢复的 30 天，包含母亲提出的 7 个问题和作者的逐条回应方式，跟帖里补充了父亲角色的介入时机。</p>
+            <div class="card-meta"><span>跟帖 87</span><span>11-02</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/house01/400/300" width="400" height="300" loading="lazy" alt="伴侣共同购房署名对照表配图，房屋模型与文件">
+          <div class="card-body">
+            <h3><a href="#featured">伴侣共同购房：三种署名方式的风险对照</a></h3>
+            <div class="tag-row"><span class="tag">法律权益</span><span class="tag">财产约定</span><span class="tag accent">精华</span></div>
+            <p class="card-desc">把按份共有、共同共有、一方出资登记在另一方名下三种情形拆成出资比例、分割方式、举证难度三栏，附 2026 年 9 月一起真实纠纷的判决要点。</p>
+            <div class="card-meta"><span>收藏 126</span><span>11-04</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/hiking01/400/300" width="400" height="300" loading="lazy" alt="香山环线徒步活动配图，山间步道与人群">
+          <div class="card-body">
+            <h3><a href="#featured">香山环线徒步：11 月 9 日集合安排与路线图</a></h3>
+            <div class="tag-row"><span class="tag">同城活动</span><span class="tag">北京</span><span class="tag">户外</span></div>
+            <p class="card-desc">全程约 8.6 公里，累计爬升 340 米，组织者标注了两处补水点和一处下撤口，报名已满 30 人，候补名单开放到 11 月 8 日 20:00。</p>
+            <div class="card-meta"><span>报名 30/30</span><span>11-06</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/mental01/400/300" width="400" height="300" loading="lazy" alt="心理咨询挂号经验配图，诊室走廊与候诊椅">
+          <div class="card-body">
+            <h3><a href="#featured">北京三家公立医院心理科挂号实测</a></h3>
+            <div class="tag-row"><span class="tag">心理健康</span><span class="tag">就医经验</span><span class="tag">北京</span></div>
+            <p class="card-desc">分别记录安定医院、北医六院、回龙观医院的放号时间、候诊时长和首次就诊流程，附一张对比表和两次临时加号的经历。</p>
+            <div class="card-meta"><span>跟帖 53</span><span>10-29</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/guardian01/400/300" width="400" height="300" loading="lazy" alt="意定监护公证材料清单配图，公证书与印章">
+          <div class="card-body">
+            <h3><a href="#featured">意定监护公证：材料清单与办理流程记录</a></h3>
+            <div class="tag-row"><span class="tag">法律权益</span><span class="tag">意定监护</span><span class="tag">公证</span></div>
+            <p class="card-desc">列出身份证、户口本、监护协议草案、关系证明四类材料，记录在北京某公证处从预约到出证的 18 个工作日，以及被要求补充的一份说明。</p>
+            <div class="card-meta"><span>收藏 98</span><span>10-30</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/longdist01/400/300" width="400" height="300" loading="lazy" alt="异地伴侣沟通配图，两部手机与地图">
+          <div class="card-body">
+            <h3><a href="#featured">异地两年：我们试过的四种沟通安排</a></h3>
+            <div class="tag-row"><span class="tag">伴侣相处</span><span class="tag">异地</span><span class="tag">沟通</span></div>
+            <p class="card-desc">固定视频日、共享日历、每周一次长谈、每月一次见面，四种安排各自执行了多久、在哪一步失效，作者给了具体月份和放弃原因。</p>
+            <div class="card-meta"><span>跟帖 64</span><span>11-01</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. 最新更新 -->
+    <section class="section" id="latest">
+      <div class="section-head">
+        <h2>最新更新与动态</h2>
+        <span class="sub">11 月 7 日 — 11 月 8 日</span>
+      </div>
+      <ul class="dyn-list">
+        <li><time datetime="2026-11-08">11-08 09:42</time><span><span class="dyn-title">「出柜后家庭关系修复」</span><span class="dyn-sum">新增一条跟帖，作者更新了第 30 天母亲主动打电话的细节。</span></span></li>
+        <li><time datetime="2026-11-08">11-08 08:15</time><span><span class="dyn-title">「香山环线徒步」</span><span class="dyn-sum">组织者发布集合点地铁出口照片，候补名单增至 6 人。</span></span></li>
+        <li><time datetime="2026-11-07">11-07 21:30</time><span><span class="dyn-title">「伴侣财产约定」</span><span class="dyn-sum">版主把 11 月 4 日的署名对照表移入精华区，补充了 2026 年 10 月一起案例。</span></span></li>
+        <li><time datetime="2026-11-07">11-07 18:07</time><span><span class="dyn-title">「心理咨询资源」</span><span class="dyn-sum">有人贴出上海精神卫生中心 11 月排班表，标注了三位医生的出诊时段。</span></span></li>
+        <li><time datetime="2026-11-07">11-07 14:22</time><span><span class="dyn-title">「成都桌游局」</span><span class="dyn-sum">周六场报名 12 人，组织者把地点从咖啡馆改到桌游店包间。</span></span></li>
+        <li><time datetime="2026-11-07">11-07 11:05</time><span><span class="dyn-title">「意定监护公证」</span><span class="dyn-sum">楼主补充了第二次去公证处被要求追加的「监护人与被监护人关系说明」模板。</span></span></li>
+        <li><time datetime="2026-11-06">11-06 20:48</time><span><span class="dyn-title">「出柜沟通」</span><span class="dyn-sum">新增 46 条经验分享，其中 18 条来自 25 岁以下用户。</span></span></li>
+        <li><time datetime="2026-11-06">11-06 16:33</time><span><span class="dyn-title">「同城小组」</span><span class="dyn-sum">杭州西湖小组发布 11 月活动日历，包含两场徒步和一场读书会。</span></span></li>
+        <li><time datetime="2026-11-05">11-05 22:10</time><span><span class="dyn-title">「健康常识」</span><span class="dyn-sum">一条关于体检项目选择的帖子被置顶，楼主列出了 5 项常被推荐但需按年龄判断的项目。</span></span></li>
+        <li><time datetime="2026-11-05">11-05 09:18</time><span><span class="dyn-title">「广州天河小组」</span><span class="dyn-sum">发布 11 月 14 日聚餐召集，限 15 人，费用 AA。</span></span></li>
+      </ul>
+    </section>
+
+    <!-- 4. 分类入口 -->
+    <section class="section" id="categories">
+      <div class="section-head">
+        <h2>分类入口</h2>
+        <span class="sub">按话题方向进入对应板块</span>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card">
+          <h3>出柜沟通</h3>
+          <p>向父母、亲戚、同事出柜的时机选择与对话记录，含多次沟通的复盘。</p>
+          <span class="cat-count">主题 186 · 今日 +3</span>
+        </div>
+        <div class="cat-card">
+          <h3>伴侣相处</h3>
+          <p>异地维持、共同财务、日常摩擦处理、分手后的关系整理。</p>
+          <span class="cat-count">主题 243 · 今日 +5</span>
+        </div>
+        <div class="cat-card">
+          <h3>健康常识</h3>
+          <p>体检项目选择、常见就医流程、心理咨询资源与用药经验。</p>
+          <span class="cat-count">主题 152 · 今日 +2</span>
+        </div>
+        <div class="cat-card">
+          <h3>法律权益</h3>
+          <p>意定监护、财产约定、遗嘱订立、共同购房署名与纠纷案例。</p>
+          <span class="cat-count">主题 97 · 今日 +4</span>
+        </div>
+        <div class="cat-card">
+          <h3>同城活动</h3>
+          <p>9 个城市小组的徒步、桌游、聚餐、观影召集与活动复盘。</p>
+          <span class="cat-count">主题 211 · 今日 +12</span>
+        </div>
+        <div class="cat-card">
+          <h3>心理健康</h3>
+          <p>焦虑与情绪困扰的自我记录、咨询师匹配、支持小组信息。</p>
+          <span class="cat-count">主题 134 · 今日 +6</span>
+        </div>
+        <div class="cat-card">
+          <h3>日常闲聊</h3>
+          <p>追剧、养宠、做饭、租房等生活话题，标题需写明具体对象。</p>
+          <span class="cat-count">主题 198 · 今日 +9</span>
+        </div>
+        <div class="cat-card">
+          <h3>互助问答</h3>
+          <p>具体问题求助与经验回应，问答双方需写明所在城市与时间。</p>
+          <span class="cat-count">主题 63 · 今日 +5</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 深度解析 -->
+    <section class="section deep" id="deep">
+      <div class="section-head">
+        <h2>深度解析：社群讨论里的信息分层</h2>
+        <span class="sub">以出柜、财产、活动三类帖子为例</span>
+      </div>
+      <p>同一个话题在论坛里会以不同形态出现：有人写经历，有人贴材料，有人只问一句。把三类帖子的信息价值分开看，比笼统判断「这个帖子有没有用」更可靠。</p>
+
+      <h3>经历帖的可核对项：时间、对象、对话轮次</h3>
+      <p>出柜沟通板块里被收藏较多的帖子，通常包含三样东西：具体日期、沟通对象、以及对话推进到第几轮。10 月 26 日发布的那篇「向母亲出柜后的第 30 天」，作者标出了 10 月 1 日摊牌、10 月 3 日母亲第一次主动发消息、10 月 12 日父亲介入、10 月 30 日家庭聚餐恢复。四个节点让读者能对上自己的进度。相比之下，只写「我出柜了，家人反应还行」的帖子，跟帖里追问最多的是「哪天说的」「你妈第一句是什么」，信息密度明显不够。</p>
+      <p>可核对的结构还包括对话轮次。同一篇帖子列出母亲提出的 7 个问题，从「你是不是被谁带的」到「以后老了怎么办」，作者逐条附上自己的回应。这比总结一句「要耐心沟通」有用得多，因为读者能直接看到哪一类问题最容易卡住。</p>
+
+      <h3>财产帖的证据链：出资凭证、登记方式、协议文本</h3>
+      <p>11 月 4 日的共同购房署名对照表之所以被设为精华，原因在于它把三种情形拆成了可逐项核对的栏目，而不是只给结论。表格里三行分别是按份共有、共同共有、一方出资登记在另一方名下，四列分别是出资比例如何证明、分割时怎么算、发生争议时谁举证、需要提前准备什么文本。每一格都有具体指向，比如按份共有栏下写的是「银行转账记录需备注用途，现金交付难以举证」。</p>
+      <p>这篇帖子还附了 2026 年 9 月一起纠纷的判决要点：双方共同出资但只登记在一方名下，法院最终按出资比例分割，关键在于另一方保留了 14 笔转账记录和一段微信聊天。缺少任何一项，结果都可能不同。读者要判断自己情况的风险，可以对照这张表逐项打勾，缺哪项就补哪项。</p>
+      <p>把「传播快」「可信度低」这类模糊判断拆开，方法也类似。一条消息在论坛里传得快，通常经过三个环节：首发帖、截图转发到群、再回流到论坛形成二次讨论。每个环节都会丢失一部分上下文，比如首发帖写了「据朋友说」，截图转发时这句话常被裁掉。要核对一条信息的可信度，可以看它是否保留了首发时间、是否有第二个人独立佐证、原始出处是否可点开。三项缺两项以上，就只当线索，不当结论。</p>
+
+      <h3>活动帖的决策成本：路线、人数、退出机制</h3>
+      <p>同城活动的召集帖，信息完整度直接影响报名转化。11 月 6 日的香山环线徒步帖写了全程 8.6 公里、累计爬升 340 米、两处补水点、一处下撤口、集合时间与地铁出口，还注明候补名单截止到 11 月 8 日 20:00。这些细节让报名者能在出发前判断体力是否够用、临时退出是否有替补。只写「周末爬山，想来的报名」的帖子，往往在出发前一天还有人在问集合地点。</p>
+      <p>活动帖的退出机制也值得单独看。有的组织者要求提前 24 小时告知，有的接受当天早上临时取消但需在群里说一声。前者便于安排车辆和餐位，后者对参与者更宽松。两种做法没有绝对优劣，但帖子写清楚，报名的人才知道自己承诺了什么。</p>
+    </section>
+
+    <!-- 6. 体验指南 -->
+    <section class="section" id="guide">
+      <div class="section-head">
+        <h2>内容消费路径与判断依据</h2>
+        <span class="sub">先看哪类帖，怎么比</span>
+      </div>
+      <ol class="steps">
+        <li>
+          <div>
+            <h4>先找带时间线的经历帖，不先看结论帖</h4>
+            <p>出柜、分手、就医这类话题，带具体日期的经历帖信息量通常高于总结帖。看作者在哪个节点做了什么、对方如何回应，比看「要勇敢」有用。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>法律类先看材料清单，再看案例</h4>
+            <p>意定监护、财产约定这类内容，先确认帖子有没有列出所需材料、办理地点、耗时。有材料清单的帖子，可以直接拿去对照自己的情况；只有案例的，更多是参考判决思路。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>同城活动看三项：路线难度、人数上限、退出规则</h4>
+            <p>三项齐全的活动帖，报名后临时变化的概率低。缺退出规则的，可以在跟帖里问一句「临时有事怎么处理」，组织者的回复速度也是判断信号。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>对比同类帖子时，先比具体信息，再比跟帖质量</h4>
+            <p>两篇讲异地相处的帖子，一篇写了四种安排各自执行多久、在哪一步失效，另一篇只写「要多沟通」。前者的跟帖往往也在补充具体月份和做法，后者容易变成互相打气。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>健康类内容区分个人体验与就医建议</h4>
+            <p>体检项目、挂号流程属于经验分享，可以参照；用药剂量、诊断结论只能作为就诊前的准备问题，不能替代医生判断。帖子里写明「这是我的情况」的，比直接给结论的更值得看。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section class="section" id="faq">
+      <div class="section-head">
+        <h2>常见问答</h2>
+        <span class="sub">围绕具体话题的高频疑问</span>
+      </div>
+      <details class="faq">
+        <summary>向父母出柜前，帖子里一般建议先准备什么？</summary>
+        <div class="faq-body">被反复提到的是三样：自己的经济与居住是否独立、父母可能提出的问题清单、以及一个可以暂时离开现场的安排。11 月 2 日那篇精华帖里，作者提前写下了母亲最可能问的 7 个问题并逐条准备回应，实际对话中出现了其中 5 个。</div>
+      </details>
+      <details class="faq">
+        <summary>意定监护公证需要双方都到场吗？</summary>
+        <div class="faq-body">10 月 30 日的办理记录帖写明，北京某公证处要求监护人与被监护人同时到场，各带身份证、户口本，另需监护协议草案和关系说明。该帖记录了 18 个工作日出证的过程，中途被要求补充一份手写说明。</div>
+      </details>
+      <details class="faq">
+        <summary>伴侣共同出资买房，只登记一个人名字，风险在哪？</summary>
+        <div class="faq-body">风险集中在举证。11 月 4 日的对照表列出：出资记录需备注用途，现金交付难以证明；聊天记录要能对应到购房款；分割时按出资比例还是按登记名义，各地判例有差异。该帖附了 2026 年 9 月一起按出资比例分割的判决要点。</div>
+      </details>
+      <details class="faq">
+        <summary>同城徒步活动，新手适合跟哪类召集帖？</summary>
+        <div class="faq-body">看帖子里有没有写距离、爬升、下撤点和补水点。11 月 9 日香山环线帖标明 8.6 公里、爬升 340 米、两处补水、一处下撤口，对第一次参加的人信息足够。只写「休闲路线」而不给数字的，建议在跟帖里追问。</div>
+      </details>
+      <details class="faq">
+        <summary>心理咨询第一次去公立医院，挂号后流程是怎样的？</summary>
+        <div class="faq-body">10 月 29 日的挂号实测帖记录：先到分诊台报到，填一份 47 题的量表，等待叫号，首次问诊约 20 到 30 分钟，医生根据情况建议复诊或转介。三家医院的放号时间不同，安定医院为提前 7 天，北医六院为提前 3 天。</div>
+      </details>
+      <details class="faq">
+        <summary>论坛里的同城活动帖，怎么判断组织者是否可靠？</summary>
+        <div class="faq-body">看组织者过往发帖记录、活动帖是否写明集合地点和退出规则、跟帖里有没有往期参与者回应。11 月 6 日的徒步帖组织者此前发过 4 次活动记录，均附有路线图和参与人数，这类帖子可信度相对高。</div>
+      </details>
+    </section>
+
+    <!-- 8. 用户评论 -->
+    <section class="section" id="comments">
+      <div class="section-head">
+        <h2>用户评论</h2>
+        <span class="sub">来自近期主题帖的跟帖摘选</span>
+      </div>
+      <div class="comment-list">
+        <div class="comment">
+          <div class="who"><strong>山路十八弯</strong><time datetime="2026-11-08">11-08</time></div>
+          香山那条线我走过，8.6 公里那个数字靠谱，下撤口在挂甲塔附近，补给要自己带够。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>青柠气泡</strong><time datetime="2026-11-08">11-08</time></div>
+          出柜那篇看到第十天母亲主动发消息，我眼眶有点热。我妈当时是第三周才开口的，时间点真差不多。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>半糖去冰</strong><time datetime="2026-11-07">11-07</time></div>
+          共同购房那个表我打印出来了，逐项对了一遍，发现自己缺转账备注，准备去银行补打流水。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>老陈不熬夜</strong><time datetime="2026-11-07">11-07</time></div>
+          意定监护 18 个工作日算快的了，我在另一个区办，前后跑了三趟。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>薄荷汽水</strong><time datetime="2026-11-07">11-07</time></div>
+          心理科那个 47 题量表我也填过，做完手都酸。不过分诊台护士态度挺好的。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>南城旧事</strong><time datetime="2026-11-06">11-06</time></div>
+          异地那篇四种安排，我们试过共享日历，坚持了两个月就没人更新了，哈哈。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>一只猫饼</strong><time datetime="2026-11-06">11-06</time></div>
+          日常闲聊板块能不能多发点养猫的，最近全是追剧帖，刷得有点腻。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>望京老张</strong><time datetime="2026-11-05">11-05</time></div>
+          成都桌游局改到包间是对的，咖啡馆太吵，狼人杀根本听不清发言。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>橘子海</strong><time datetime="2026-11-05">11-05</time></div>
+          体检项目那个帖子说得实在，我 30 岁被推荐做骨密度，当时就觉得不对劲。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>林间小径</strong><time datetime="2026-11-04">11-04</time></div>
+          财产对照表里按份共有那栏写得清楚，现金交付难举证这句应该加粗。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>不加班的周五</strong><time datetime="2026-11-04">11-04</time></div>
+          杭州活动日历看到了，读书会那场想报名，但时间跟加班撞了，蹲下个月的。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>海边有风</strong><time datetime="2026-11-03">11-03</time></div>
+          说句跑题的，最近天冷了，大家出门活动记得带件外套。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>沉默的螺旋桨</strong><time datetime="2026-11-03">11-03</time></div>
+          那种只写「家人反应还行」的帖子确实没法参考，我每次都要在评论里追问半天。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>芋泥啵啵</strong><time datetime="2026-11-02">11-02</time></div>
+          出柜复盘帖里父亲介入那段写得好，很多人只讲母亲的反应，父亲那块经常被忽略。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>北纬四十度</strong><time datetime="2026-11-02">11-02</time></div>
+          同城小组能不能多开几个二线城市的，每次看活动都在北上广成杭。
+        </div>
+        <div class="comment">
+          <div class="who"><strong>半页笔记</strong><time datetime="2026-11-01">11-01</time></div>
+          挂号实测帖的三家医院对比挺有用，就是希望下次加上挂号费金额。
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. 相关资讯 -->
+    <section class="section" id="news">
+      <div class="section-head">
+        <h2>相关资讯</h2>
+        <span class="sub">近期社群与公共信息动态</span>
+      </div>
+      <ul class="news-list">
+        <li>
+          <div class="meta">2026-11-07 · 来源：社群公告</div>
+          <h3><a href="#news">9 个同城小组 11 月活动日历汇总，共 23 场线下活动</a></h3>
+          <p>其中徒步 8 场、桌游 6 场、聚餐 5 场、读书会 3 场、观影 1 场。北京小组活动密度最高，单月 6 场；广州天河小组新增两场工作日夜间活动。</p>
+        </li>
+        <li>
+          <div class="meta">2026-11-06 · 来源：法律板块整理</div>
+          <h3><a href="#news">意定监护公证材料清单更新，新增关系说明模板</a></h3>
+          <p>该模板由 10 月 30 日发布办理记录的用户补充，共 3 段、约 400 字，说明了监护人与被监护人的相识时间、共同生活情况和监护安排意向。</p>
+        </li>
+        <li>
+          <div class="meta">2026-11-05 · 来源：健康板块</div>
+          <h3><a href="#news">上海精神卫生中心 11 月排班表发布，标注 3 位医生出诊时段</a></h3>
+          <p>排班表显示，11 月 10 日至 14 日三位医生各有 2 个半天门诊，其中一位在 11 月 12 日下午加开一次复诊专场，限号 15 个。</p>
+        </li>
+        <li>
+          <div class="meta">2026-11-04 · 来源：精华帖整理</div>
+          <h3><a href="#news">共同购房署名对照表附 9 月纠纷判决要点，涉及 14 笔转账记录</a></h3>
+          <p>判决要点显示，当事人保留了 14 笔转账记录和一段微信聊天，法院最终按出资比例分割。整理者提醒转账备注用途是举证关键。</p>
+        </li>
+        <li>
+          <div class="meta">2026-11-03 · 来源：出柜沟通板块</div>
+          <h3><a href="#news">「向母亲出柜后的第 30 天」跟帖破 80 条，新增 12 条父亲角色讨论</a></h3>
+          <p>12 条跟帖集中讨论父亲在家庭沟通中的介入时机，其中 7 条提到父亲通常在母亲态度松动后一周左右才表态，早于或晚于这个区间的情况较少。</p>
+        </li>
+        <li>
+          <div class="meta">2026-11-01 · 来源：同城活动</div>
+          <h3><a href="#news">杭州西湖小组发布 11 月活动日历，含两场徒步和一场读书会</a></h3>
+          <p>两场徒步分别为 11 月 15 日的九溪线和 11 月 22 日的宝石山线，读书会定在 11 月 29 日下午，书目为《亲密关系》第 6 版。</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 10. 相关推荐 -->
+    <section class="section" id="related">
+      <div class="section-head">
+        <h2>相关推荐</h2>
+        <span class="sub">按具体条目与话题方向索引</span>
+      </div>
+      <div class="rec-tags">
+        <a href="#featured">出柜后家庭关系修复</a>
+        <a href="#featured">意定监护公证材料清单</a>
+        <a href="#featured">伴侣共同购房署名对照</a>
+        <a href="#featured">香山环线徒步路线图</a>
+        <a href="#featured">北京心理科挂号实测</a>
+        <a href="#featured">异地两年沟通安排</a>
+        <a href="#news">11 月同城活动日历</a>
+        <a href="#categories">互助问答板块</a>
+      </div>
+    </section>
+
+    <!-- 11. 热门榜单 -->
+    <section class="section" id="rank">
+      <div class="section-head">
+        <h2>热门主题榜单</h2>
+        <span class="sub">按 11 月 1 日 — 11 月 8 日跟帖与收藏综合排序</span>
+      </div>
+      <ol class="rank-list">
+        <li><span class="rank-name">向母亲出柜后的第 30 天：一次完整复盘</span><span class="rank-score">87 跟帖 · 214 收藏</span></li>
+        <li><span class="rank-name">伴侣共同购房：三种署名方式的风险对照</span><span class="rank-score">62 跟帖 · 198 收藏</span></li>
+        <li><span class="rank-name">意定监护公证：材料清单与办理流程记录</span><span class="rank-score">48 跟帖 · 126 收藏</span></li>
+        <li><span class="rank-name">北京三家公立医院心理科挂号实测</span><span class="rank-score">53 跟帖 · 98 收藏</span></li>
+        <li><span class="rank-name">异地两年：我们试过的四种沟通安排</span><span class="rank-score">64 跟帖 · 87 收藏</span></li>
+        <li><span class="rank-name">香山环线徒步：11 月 9 日集合安排</span><span class="rank-score">41 跟帖 · 76 收藏</span></li>
+        <li><span class="rank-name">体检项目怎么选：30 岁前后差异清单</span><span class="rank-score">37 跟帖 · 69 收藏</span></li>
+        <li><span class="rank-name">成都桌游局改到包间的三点原因</span><span class="rank-score">29 跟帖 · 54 收藏</span></li>
+      </ol>
+    </section>
+
+    <!-- 12. 投稿互动 -->
+    <section class="submit-band" id="interact">
+      <div>
+        <h2>分享你的经历与判断</h2>
+        <p>出柜沟通、伴侣相处、法律办理、同城活动，都可以写成主题帖。写清时间、地点、对象和推进步骤，跟帖会更有针对性。</p>
+      </div>
+      <a class="btn-primary" href="#interact">发布主题</a>
+    </section>
+
+  </main>
+
+  <!-- 右辅助栏 -->
+  <aside class="col-right" aria-label="辅助信息">
+    <div class="side-box">
+      <div class="side-title">今日热帖</div>
+      <ol class="hot-list">
+        <li><span class="num">1</span><span>香山环线徒步候补名单增至 6 人，组织者更新集合照片</span></li>
+        <li><span class="num">2</span><span>出柜复盘帖新增父亲介入细节，跟帖 87 条</span></li>
+        <li><span class="num">3</span><span>共同购房对照表补充 9 月判决要点</span></li>
+        <li><span class="num">4</span><span>上海精神卫生中心 11 月排班表发布</span></li>
+        <li><span class="num">5</span><span>意定监护公证补充关系说明模板</span></li>
+      </ol>
+    </div>
+    <div class="side-box">
+      <div class="side-title">近期更新</div>
+      <ul class="update-flow">
+        <li><time datetime="2026-11-08">11-08 09:42</time>出柜沟通板块新增跟帖</li>
+        <li><time datetime="2026-11-08">11-08 08:15</time>香山徒步集合照片发布</li>
+        <li><time datetime="2026-11-07">11-07 21:30</time>财产对照表移入精华区</li>
+        <li><time datetime="2026-11-07">11-07 18:07</time>上海心理科排班表帖</li>
+        <li><time datetime="2026-11-06">11-06 20:48</time>出柜经验新增 46 条</li>
+      </ul>
+    </div>
+    <div class="side-box">
+      <div class="side-title">条目时间线</div>
+      <ul class="timeline">
+        <li><time datetime="2026-11-08">11-08</time><strong>徒步候补开放</strong><p>候补截止 11 月 8 日 20:00</p></li>
+        <li><time datetime="2026-11-06">11-06</time><strong>活动帖发布</strong><p>路线与集合信息更新</p></li>
+        <li><time datetime="2026-11-04">11-04</time><strong>对照表设为精华</strong><p>附 9 月纠纷判决要点</p></li>
+        <li><time datetime="2026-11-02">11-02</time><strong>出柜复盘帖置顶</strong><p>跟帖突破 80 条</p></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<!-- 页脚 -->
+<footer class="site-foot">
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <svg viewBox="0 0 64 64" role="img" aria-label="中同论坛标志">
+            <rect width="64" height="64" rx="14" fill="#1d5a68"/>
+            <path d="M16 44V20h8l8 12 8-12h8v24h-7V31l-7 10h-4l-7-10v13z" fill="#f2c14e"/>
+          </svg>
+          <strong>中同论坛</strong>
+        </div>
+        <p class="foot-desc">
+          内容覆盖 2026 年 9 月至 11 月的社群讨论，条目类型包括经历复盘、材料清单、活动召集、就医记录与问答互助。工作日日均新增 30 到 50 条主题，周末同城活动召集集中发布。
+        </p>
+      </div>
+      <div class="foot-cols">
+        <div>
+          <h4>话题板块</h4>
+          <ul>
+            <li><a href="#categories">出柜沟通</a></li>
+            <li><a href="#categories">伴侣相处</a></li>
+            <li><a href="#categories">健康常识</a></li>
+            <li><a href="#categories">法律权益</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>同城与活动</h4>
+          <ul>
+            <li><a href="#categories">北京小组</a></li>
+            <li><a href="#categories">上海小组</a></li>
+            <li><a href="#categories">成都小组</a></li>
+            <li><a href="#categories">杭州小组</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>内容入口</h4>
+          <ul>
+            <li><a href="#featured">精选主题</a></li>
+            <li><a href="#deep">深度解析</a></li>
+            <li><a href="#faq">常见问答</a></li>
+            <li><a href="#news">相关资讯</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>参与方式</h4>
+          <ul>
+            <li><a href="#interact">发布主题</a></li>
+            <li><a href="#comments">用户评论</a></li>
+            <li><a href="#rank">热门榜单</a></li>
+            <li><a href="#latest">最新更新</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>页面内容为社群讨论示例条目，涉及时间、人数、收藏量均以 2026 年 11 月 8 日为基准。</span>
+      <span>最近核对：2026-11-08 · 今日更新 46 条主题</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  // 移动端菜单
+  var hamburger = document.getElementById('hamburger');
+  var mainNav = document.getElementById('mainNav');
+  var overlay = document.getElementById('overlay');
+
+  function closeMenu(){
+    mainNav.classList.remove('open');
+    overlay.classList.remove('show');
+    hamburger.setAttribute('aria-expanded','false');
+  }
+  function openMenu(){
+    mainNav.classList.add('open');
+    overlay.classList.add('show');
+    hamburger.setAttribute('aria-expanded','true');
+  }
+  if(hamburger){
+    hamburger.addEventListener('click', function(){
+      if(mainNav.classList.contains('open')){ closeMenu(); } else { openMenu(); }
+    });
+  }
+  if(overlay){
+    overlay.addEventListener('click', closeMenu);
+  }
+  mainNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ if(window.innerWidth <= 1024){ closeMenu(); } });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeMenu(); }
+  });
+
+  // 回到顶部
+  var toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > window.innerHeight){
+      toTop.classList.add('show');
+    } else {
+      toTop.classList.remove('show');
+    }
+  }, {passive:true});
+  toTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  // 搜索筛选
+  var searchInput = document.getElementById('searchInput');
+  var searchBtn = document.getElementById('searchBtn');
+  var sections = document.querySelectorAll('.content .section');
+  var noResult = document.createElement('div');
+  noResult.className = 'no-result';
+  noResult.textContent = '没有找到包含该关键词的条目，换个词试试，比如「出柜」「公证」「徒步」。';
+  var content = document.getElementById('mainContent');
+  content.insertBefore(noResult, content.firstChild);
+
+  function runSearch(){
+    var q = (searchInput.value || '').trim().toLowerCase();
+    if(!q){
+      sections.forEach(function(s){ s.style.display = ''; });
+      noResult.classList.remove('show');
+      return;
+    }
+    var hit = 0;
+    sections.forEach(function(s){
+      var text = s.textContent.toLowerCase();
+      if(text.indexOf(q) !== -1){
+        s.style.display = '';
+        hit++;
+      } else {
+        s.style.display = 'none';
+      }
+    });
+    if(hit === 0){
+      noResult.classList.add('show');
+      sections.forEach(function(s){ s.style.display = ''; });
+    } else {
+      noResult.classList.remove('show');
+    }
+  }
+  searchBtn.addEventListener('click', runSearch);
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); runSearch(); }
+  });
+  searchInput.addEventListener('input', function(){
+    if(!searchInput.value.trim()){ runSearch(); }
+  });
+
+  // 侧栏滚动高亮
+  var navLinks = document.querySelectorAll('.channel-nav a[href^="#"]');
+  var targets = [];
+  navLinks.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(el){ targets.push({el:el, link:a}); }
+  });
+  var navObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        navLinks.forEach(function(a){ a.classList.remove('current'); });
+        targets.forEach(function(t){
+          if(t.el === entry.target){ t.link.classList.add('current'); }
+        });
+      }
+    });
+  }, {rootMargin:'-120px 0px -60% 0px', threshold:0});
+  targets.forEach(function(t){ navObserver.observe(t.el); });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"中同论坛",
+  "url":"/",
+  "description":"中同论坛聚合社群讨论、经验分享与同城活动信息，提供话题精选、分类索引、深度解析与用户评论。",
+  "inLanguage":"zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"向父母出柜前，帖子里一般建议先准备什么？","acceptedAnswer":{"@type":"Answer","text":"被反复提到的是三样：自己的经济与居住是否独立、父母可能提出的问题清单、以及一个可以暂时离开现场的安排。11 月 2 日那篇精华帖里，作者提前写下了母亲最可能问的 7 个问题并逐条准备回应。"}},
+    {"@type":"Question","name":"意定监护公证需要双方都到场吗？","acceptedAnswer":{"@type":"Answer","text":"10 月 30 日的办理记录帖写明，北京某公证处要求监护人与被监护人同时到场，各带身份证、户口本，另需监护协议草案和关系说明，18 个工作日出证。"}},
+    {"@type":"Question","name":"伴侣共同出资买房，只登记一个人名字，风险在哪？","acceptedAnswer":{"@type":"Answer","text":"风险集中在举证。11 月 4 日的对照表列出出资记录需备注用途、现金交付难以证明、聊天记录要能对应购房款，并附 2026 年 9 月一起按出资比例分割的判决要点。"}},
+    {"@type":"Question","name":"同城徒步活动，新手适合跟哪类召集帖？","acceptedAnswer":{"@type":"Answer","text":"看帖子里有没有写距离、爬升、下撤点和补水点。11 月 9 日香山环线帖标明 8.6 公里、爬升 340 米、两处补水、一处下撤口，对第一次参加的人信息足够。"}},
+    {"@type":"Question","name":"心理咨询第一次去公立医院，挂号后流程是怎样的？","acceptedAnswer":{"@type":"Answer","text":"10 月 29 日的挂号实测帖记录：先到分诊台报到，填一份 47 题的量表，等待叫号，首次问诊约 20 到 30 分钟，三家医院放号时间不同。"}},
+    {"@type":"Question","name":"论坛里的同城活动帖，怎么判断组织者是否可靠？","acceptedAnswer":{"@type":"Answer","text":"看组织者过往发帖记录、活动帖是否写明集合地点和退出规则、跟帖里有没有往期参与者回应。11 月 6 日的徒步帖组织者此前发过 4 次活动记录。"}}
+  ]
+}
+</script>
+</body>
+          </html>
